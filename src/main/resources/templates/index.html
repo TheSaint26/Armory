@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Armory</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="homepage" style="background-image: url('/images/giphy.gif')">
+    <div th:include="~{fragments/navbar}"></div>
+    <div class="background-class"></div>
+    <div>
+    <h1>Welcome to the Armory!</h1>
+<!--    <h2>Winners never talk about glorious victories. That's because they're the ones who see what the battlefield looks like afterwards.</h2>-->
+    </div>
+    <div class="container-fluid">
+<!--        <h1 id="welcome-text">ARMORY</h1>-->
+        <img src="/images/armory_ili2.png" width="150px" height="50px" class="armory-logo">
+<!--        <h5 class="text-center text-white mt-5">-->
+<!--            Welcome to Armory,-->
+<!--            <span th:if="${@currentUser.isLoggedIn()}"-->
+<!--                  th:text="${@currentUser.getName()}">-->
+<!--            !-->
+<!--        </span>-->
+<!--            <span th:if="${@currentUser.isAnonymous()}">-->
+<!--            Anonymous! Have fun!-->
+<!--        </span>-->
+<!--        </h5>-->
+    </div>
+</body>
+<div class="blockquote-footer" th:replace="~{fragments/footer}"></div>
+</html>

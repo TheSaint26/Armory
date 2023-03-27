@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+.text {
+font-size: 20px;
+padding-left: 20px;
+}
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body page-item" style="background-image: url('/images/firearms-details-image.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<main>
+  <div class="container" th:object="${rocketArtillery}">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4">
+          <img class="img-fluid rounded-start" th:src="${rocketArtillery.getImageURL()}">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h4 th:text="${rocketArtillery.getName()}">Infantry Fighting Vehicle name</h4>
+            <p th:text="|Country of origin: ${rocketArtillery.getCountryOfOrigin()}|"></p>
+            <p th:text="|Type: ${rocketArtillery.getType()}|"></p>
+            <p th:text="|Entered service: ${rocketArtillery.getEnteredService()} year|"></p>
+            <p th:text="|Caliber: ${rocketArtillery.getCaliber()} mm.|"></p>
+            <p th:text="|Number of Tubes: ${rocketArtillery.getNumberOfTubes()}|"></p>
+            <p th:text="|Rocket Weight: ${rocketArtillery.getRocketWeight()} kg.|"></p>
+            <p th:text="|Warhead Weight: ${rocketArtillery.getWarheadWeight()} kg.|"></p>
+            <p th:text="|Max Firing Range: ${rocketArtillery.getMaxFiringRange()} km.|"></p>
+            <p th:text="|Full Salvo Duration: ${rocketArtillery.getFullSalvoDuration()} sec.|"></p>
+            <p th:text="|Reloading Time: ${rocketArtillery.getReloadingTime()} min.|"></p>
+            <p th:text="|Engine: ${rocketArtillery.getEngine()} |"></p>
+            <p th:text="|Description: ${rocketArtillery.getDescription()}|"></p>
+            <p>
+              <button class="btn btn-warning" th:text="|Buy for ${rocketArtillery.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

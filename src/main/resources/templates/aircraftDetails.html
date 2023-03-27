@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+.text {
+font-size: 20px;
+padding-left: 20px;
+}
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body page-item" style="background-image: url('/images/firearms-details-image.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<main>
+  <div class="container" th:object="${aircraft}">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4">
+          <img class="img-fluid rounded-start" th:src="${aircraft.getImageUrl()}">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h4 th:text="${aircraft.getName()}">Infantry Fighting Vehicle name</h4>
+            <p th:text="|Country of origin: ${aircraft.getCountryOfOrigin()}|"></p>
+            <p th:text="|Type: ${aircraft.getType()}|"></p>
+            <p th:text="|Crew: ${aircraft.getCrew()}|"></p>
+            <p th:text="|Length: ${aircraft.getLength()} m.|"></p>
+            <p th:text="|Wing Span: ${aircraft.getWingSpan()} m.|"></p>
+            <p th:text="|Weight Empty: ${aircraft.getWeightEmpty()} t.|"></p>
+            <p th:text="|Weight Full: ${aircraft.getWeightFull()} t.|"></p>
+            <p th:text="|Engine: ${aircraft.getEngine()}|"></p>
+            <p th:text="|Max Speed: ${aircraft.getMaxSpeed()} kmph|"></p>
+            <p th:text="|Max Range: ${aircraft.getMaxRange()} km.|"></p>
+            <p th:text="|Combat Radius: ${aircraft.getCombatRadius()} km.|"></p>
+            <p th:text="|Cannon: ${aircraft.getCannon()}|"></p>
+            <p th:text="|Missiles: ${aircraft.getMissiles()}|"></p>
+            <p th:text="|Bombs: ${aircraft.getBombs()}|"></p>
+            <p th:text="|Description: ${aircraft.getDescription()}|"></p>
+            <p>
+              <button class="btn btn-warning" th:text="|Buy for ${aircraft.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+.text {
+font-size: 20px;
+padding-left: 20px;
+}
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body page-item" style="background-image: url('/images/firearms-details-image.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<main>
+  <div class="container" th:object="${nuclearRocket}">
+    <div class="card">
+      <div class="row">
+        <div class="col-md-4">
+          <img class="img-fluid rounded-start" th:src="${nuclearRocket.getImageURL()}">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h4 th:text="${nuclearRocket.getName()}">Infantry Fighting Vehicle name</h4>
+            <p th:text="|Used by: ${nuclearRocket.getUsedBy()}|"></p>
+            <p th:text="|Mass: ${nuclearRocket.getMass()} kg.|"></p>
+            <p th:text="|Length: ${nuclearRocket.getLength()} m.|"></p>
+            <p th:text="|Blast Yield: ${nuclearRocket.getBlastYield()} mt.|"></p>
+            <p th:text="|Warhead: ${nuclearRocket.getWarhead()}|"></p>
+            <p th:text="|Max Speed: ${nuclearRocket.getMaxSpeed()} kmph|"></p>
+            <p th:text="|Operational Range: ${nuclearRocket.getOperationalRange()} km.|"></p>
+            <p th:text="|Description: ${nuclearRocket.getDescription()} mt.|"></p>
+
+            <p>
+            <h2 style="color: red">This weapon is extremely dangerous and is not for sale!</h2>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>

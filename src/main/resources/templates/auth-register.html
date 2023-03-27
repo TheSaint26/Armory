@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Armory</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="register_page">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="container">
+    <h2 class="text-center text-white">Register User</h2>
+    <form   th:action="@{/users/register}"
+            th:method="POST"
+            th:object="${userModel}"
+            class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="fullName" class="text-white font-weight-bold">Full Name</label>
+                <input  id="fullName"
+                        name="fullName"
+                        th:field="*{fullName}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        type="text"
+                        class="form-control"
+                        placeholder="Full name"/>
+                <p class="invalid-feedback errors alert alert-danger">
+                    Full name is required and should be between 3 and 30 symbols.
+                </p>
+            </div>
+<!--            <div class="form-group col-md-6 mb-3">-->
+<!--                <label for="lastName" class="text-white font-weight-bold">Last Name</label>-->
+<!--                <input id="lastName"-->
+<!--                       th:field="*{lastName}"-->
+<!--                       name="lastName"-->
+<!--                       th:errorclass="is-invalid"-->
+<!--                       type="text"-->
+<!--                       class="form-control"-->
+<!--                       placeholder="Last name"/>-->
+<!--                <p class="invalid-feedback errors alert alert-danger">-->
+<!--                    Last name is required and should be between 2 and 20 symbols.-->
+<!--                </p>-->
+<!--            </div>-->
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label class="text-center text-white font-weight-bold" for="userType">User Type</label>
+                <select
+                        id="userType"
+                        name="userType"
+                        th:field="*{userType}"
+                        th:errorclass="'is-invalid bg-danger'"
+                        class="form-control">
+                    <option value="">- Select user type -</option>
+                    <option value="PERSON">Person</option>
+                    <option value="PARAMILITARY_ORGANIZATION">Paramilitary organization</option>
+                    <option value="PRIVATE_MILITARY_COMPANY">Private military company</option>
+<!--                    <option th:each="ut : ${T(bg.softuni.armory.model.enums.UserType).values()}"-->
+<!--                            th:text="${ut}"-->
+<!--                            th:value="${ut}"-->
+<!--                            th:selected="${ut} == *{userType}">-->
+                        User type
+                    </option>
+                </select>
+                <p class="invalid-feedback errors alert alert-danger">
+                    User type is required.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6 mb-3">
+                <label for="email" class="text-white font-weight-bold">Email</label>
+                <input id="email"
+                       th:field="*{email}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       name="email"
+                       type="text"
+                       class="form-control"
+                       placeholder="e-mail"/>
+<!--                <p class="invalid-feedback errors alert alert-danger">-->
+<!--                    <span-->
+<!--                            th:each="err : ${#fields.errors('email')}"-->
+<!--                            th:text="${err}"-->
+<!--                    >-->
+
+<!--                    </span>-->
+<!--                </p>-->
+                <small th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger">Email error message</small>
+            </div>
+            <div class="form-group col-md-6 mb-3">
+                <label for="password" class="text-white font-weight-bold">Password</label>
+                <input id="password"
+                       th:field="*{password}"
+                       th:errorclass="'is-invalid bg-danger'"
+                       name="password"
+                       type="password"
+                       class="form-control"
+                       placeholder="Password"/>
+                <small th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="text-danger">Password error message</small>
+<!--                <p class="invalid-feedback errors alert alert-danger">-->
+<!--                    Password is required and should be at least five symbols.-->
+<!--                </p>-->
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="text-center text-white font-weight-bold" for="confirmPassword">Confirm password</label>
+            <label for="confirmPassword" class="text-white font-weight-bold">Password</label>
+            <input id="confirmPassword"
+                   th:field="*{confirmPassword}"
+                   th:errorclass="'is-invalid bg-danger'"
+                   name="confirmPassword"
+                   type="password"
+                   min="2"
+                   max="20"
+                   class="form-control"
+                   placeholder="Password"/>
+            <small th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="text-danger">Confirm password error message</small>
+            <p th:value="${badCredentials}" class="invalid-feedback errors alert alert-danger">
+                Passwords should match!
+            </p>
+
+        </div>
+        <div class="row">
+            <div class="col col-md-4">
+                <div class="button-holder d-flex">
+                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <footer> </footer>
+</div>
+</body>
+<div class="blockquote-footer" th:replace="~{fragments/footer}"></div>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body aircraft-body page-item" style="background-image: url('/images/aircraft.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="body-div container d-flex justify-content-around">
+  <div class="offers row mx-auto d-flex flex-row justify-content-center" style="margin-top: 40px;">
+    <div th:each="w : ${aircraftList}" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+      <div th:include="~{fragments/weaponCard}"></div>
+      <div class="card-body">
+        <a class="card-link" th:href="@{/weapons/aircraft/{id} (id = ${w.id})}">Details</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<!--<div class="blockquote-footer" th:replace="~{fragments/footer}"></div>-->
+</html>

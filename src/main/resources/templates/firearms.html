@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body firearms-body page-item" style="background-image: url('/images/10717firearms.jpeg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="body-div container d-flex justify-content-around">
+  <a th:href="@{/weapons/firearms/pistols}">
+    <button type="button" class="btn btn-primary btn-lg">Pistols</button>
+  </a>
+  <a th:href="@{/weapons/firearms/assaultRifles}">
+    <button type="button" class="btn btn-primary btn-lg">Assault Rifles</button>
+  </a>
+  <a th:href="@{/weapons/firearms/machineGuns}">
+    <button type="button" class="btn btn-primary btn-lg">Machine Guns</button>
+  </a>
+  <a th:href="@{/weapons/firearms/snipers}">
+    <button type="button" class="btn btn-primary btn-lg">Snipers</button>
+  </a>
+  <a th:href="@{/weapons/firearms/grenadeLaunchers}">
+    <button type="button" class="btn btn-primary btn-lg">Grenade Launchers</button>
+  </a>
+</div>
+</body>
+<div class="blockquote-footer" th:replace="~{fragments/footer}"></div>
+</html>

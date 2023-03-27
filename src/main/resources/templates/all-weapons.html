@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Armory</title>
+    <link rel="stylesheet" href="/css/reset-css.css"/>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+    <script src="/js/jquery-3.5.1.slim.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body page-item" style="background-image: url('/images/all_weapons_background.JPG')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="body-div container d-flex justify-content-around">
+    <a th:href="@{/weapons/firearms}">
+        <button type="button"  class="btn btn-primary btn-lg">Firearms</button>
+    </a>
+    <a th:href="@{/weapons/ifv}">
+        <button type="button" class="btn btn-primary btn-lg">Infantry Fighting Vehicles</button>
+    </a>
+    <a th:href="@{/weapons/tanks}">
+        <button type="button" class="btn btn-primary btn-lg">Tanks</button>
+    </a>
+    <a th:href="@{/weapons/artillery}">
+        <button type="button" class="btn btn-primary btn-lg">Artillery</button>
+    </a>
+    <a th:href="@{/weapons/aircraft}">
+        <button type="button" class="btn btn-primary btn-lg">Aircraft</button>
+    </a>
+    <a th:href="@{/weapons/wmd}">
+        <button type="button" class="btn btn-primary btn-lg">Weapons for Mass Destruction</button>
+    </a>
+</div>
+</body>
+<div class="blockquote-footer" th:replace="~{fragments/footer}"></div>
+</html>
