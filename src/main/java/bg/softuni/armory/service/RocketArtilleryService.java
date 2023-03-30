@@ -1,11 +1,15 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.artillery.RocketArtilleryEntity;
+import bg.softuni.armory.model.entity.firearms.SniperEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.RocketArtilleryViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.RocketArtilleryType;
 import bg.softuni.armory.repository.RocketArtilleryRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,10 +21,12 @@ import java.util.stream.Collectors;
 public class RocketArtilleryService {
     private final RocketArtilleryRepository rocketArtilleryRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public RocketArtilleryService(RocketArtilleryRepository rocketArtilleryRepository, ModelMapper modelMapper) {
+    public RocketArtilleryService(RocketArtilleryRepository rocketArtilleryRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.rocketArtilleryRepository = rocketArtilleryRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedRocketArtillery() {
@@ -148,5 +154,12 @@ public class RocketArtilleryService {
             }
         }
         return null;
+    }
+
+    public void buyRocketArtillery(Long rocketArtilleryId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        RocketArtilleryEntity rocketArtillery = rocketArtilleryRepository.findById(rocketArtilleryId).get();
+        user.getBoughtRocketArtillery().add(rocketArtillery);
+        userRepository.save(user);
     }
 }

@@ -2,10 +2,13 @@ package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.firearms.AssaultRifleEntity;
 import bg.softuni.armory.model.entity.firearms.GrenadeLauncherEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.repository.GrenadeLauncherRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,10 +20,12 @@ import java.util.stream.Collectors;
 public class GrenadeLauncherService {
     private final GrenadeLauncherRepository grenadeLauncherRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public GrenadeLauncherService(GrenadeLauncherRepository grenadeLauncherRepository, ModelMapper modelMapper) {
+    public GrenadeLauncherService(GrenadeLauncherRepository grenadeLauncherRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.grenadeLauncherRepository = grenadeLauncherRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedGrenadeLaunchers() {
@@ -95,5 +100,11 @@ public class GrenadeLauncherService {
     public FirearmViewDTO getGrenadeLauncherDetails(Long id) {
         GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(id).get();
         return modelMapper.map(grenadeLauncher, FirearmViewDTO.class);
+    }
+    public void buyGrenadeLauncher(Long grenadeLauncherId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(grenadeLauncherId).get();
+        user.getBoughtGrenadeLaunchers().add(grenadeLauncher);
+        userRepository.save(user);
     }
 }

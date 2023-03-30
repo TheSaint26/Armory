@@ -2,11 +2,13 @@ package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.IFV.InfantryFightingVehicleEntity;
 import bg.softuni.armory.model.entity.firearms.SniperEntity;
-import bg.softuni.armory.model.entity.views.FirearmViewDTO;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.InfantryFightingVehicleViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.repository.InfantryFightingVehicleRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,10 +20,12 @@ import java.util.stream.Collectors;
 public class InfantryFightingVehicleService {
     private final InfantryFightingVehicleRepository infantryFightingVehicleRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public InfantryFightingVehicleService(InfantryFightingVehicleRepository infantryFightingVehicleRepository, ModelMapper modelMapper) {
+    public InfantryFightingVehicleService(InfantryFightingVehicleRepository infantryFightingVehicleRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.infantryFightingVehicleRepository = infantryFightingVehicleRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedIFV() {
@@ -144,5 +148,12 @@ public class InfantryFightingVehicleService {
     public InfantryFightingVehicleViewDTO getIFVDetails(Long id) {
         InfantryFightingVehicleEntity vehicle = infantryFightingVehicleRepository.findById(id).get();
         return modelMapper.map(vehicle, InfantryFightingVehicleViewDTO.class);
+    }
+
+    public void buyIFV(Long ifvId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        InfantryFightingVehicleEntity vehicle = infantryFightingVehicleRepository.findById(ifvId).get();
+        user.getBoughtIfvs().add(vehicle);
+        userRepository.save(user);
     }
 }

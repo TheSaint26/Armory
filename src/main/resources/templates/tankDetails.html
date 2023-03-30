@@ -43,9 +43,9 @@ padding-left: 20px;
             <p th:text="|Max Road Speed: ${tank.getMaxRoadSpeed()} kmph|"></p>
             <p th:text="|Max Range: ${tank.getMaxRange()} km.|"></p>
             <p th:text="|Description: ${tank.getDescription()}|"></p>
-            <p>
+            <form class="card-body" th:action="@{/weapons/tanks/buy/{id} (id=${tank.getId()})}">
               <button class="btn btn-warning" th:text="|Buy for ${tank.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
-            </p>
+            </form>
           </div>
         </div>
       </div>

@@ -1,25 +1,31 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.firearms.PistolEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.repository.PistolRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class PistolService {
     private final PistolRepository pistolRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public PistolService(PistolRepository pistolRepository, ModelMapper modelMapper) {
+    public PistolService(PistolRepository pistolRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.pistolRepository = pistolRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedPistols() {
@@ -134,5 +140,12 @@ public class PistolService {
     public FirearmViewDTO getPistolDetails(Long id) {
         PistolEntity pistol = pistolRepository.findById(id).get();
         return modelMapper.map(pistol, FirearmViewDTO.class);
+    }
+
+    public void buyPistol(Long pistolId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        PistolEntity pistol = pistolRepository.findById(pistolId).get();
+        user.getBoughtPistols().add(pistol);
+        userRepository.save(user);
     }
 }

@@ -1,11 +1,15 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.aircraft.AircraftEntity;
+import bg.softuni.armory.model.entity.artillery.TrunkArtilleryEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.AircraftViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.AircraftType;
 import bg.softuni.armory.repository.AircraftRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,10 +21,12 @@ import java.util.stream.Collectors;
 public class AircraftService {
     private final AircraftRepository aircraftRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public AircraftService(AircraftRepository aircraftRepository, ModelMapper modelMapper) {
+    public AircraftService(AircraftRepository aircraftRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.aircraftRepository = aircraftRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedAircraft() {
@@ -211,5 +217,12 @@ public class AircraftService {
             }
         }
         return null;
+    }
+
+    public void buyAircraft(Long aircraftId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        AircraftEntity aircraft = aircraftRepository.findById(aircraftId).get();
+        user.getBoughtAircraft().add(aircraft);
+        userRepository.save(user);
     }
 }

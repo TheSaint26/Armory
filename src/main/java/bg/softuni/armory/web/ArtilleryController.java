@@ -2,6 +2,8 @@ package bg.softuni.armory.web;
 
 import bg.softuni.armory.service.RocketArtilleryService;
 import bg.softuni.armory.service.TrunkArtilleryService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,10 +32,24 @@ public class ArtilleryController {
         return "trunkArtilleryDetails";
     }
 
+    @GetMapping("/trunk/buy/{id}")
+    public String butTrunkArtillery(@PathVariable("id") Long id,
+                                    @AuthenticationPrincipal UserDetails userDetails) {
+        trunkArtilleryService.buyTrunkArtillery(id, userDetails);
+        return "boughtItem";
+    }
+
     @GetMapping("/rocket")
     public String rocketArtillery(Model model) {
         model.addAttribute("rocketArtilleryList", rocketArtilleryService.getAllRocketArtillery());
         return "rocketArtillery";
+    }
+
+    @GetMapping("/rocket/buy/{id}")
+    public String buyRocketArtillery(@PathVariable("id") Long id,
+                                     @AuthenticationPrincipal UserDetails userDetails) {
+        rocketArtilleryService.buyRocketArtillery(id, userDetails);
+        return "boughtItem";
     }
 
     @GetMapping("/rocket/{id}")

@@ -1,10 +1,13 @@
 package bg.softuni.armory.web;
 
 import bg.softuni.armory.service.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -55,32 +58,63 @@ public class FirearmsController {
     }
 
     @GetMapping("/pistols/{id}")
-    public String getFirearmDetails(@PathVariable("id") Long id, Model model) {
+    public String getPistolDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("firearm", pistolService.getPistolDetails(id));
-        return "firearmDetails";
+        return "pistolDetails";
+    }
+    @GetMapping("/pistols/buy/{id}")
+    public String buyPistol(@PathVariable("id") Long id,
+                            @AuthenticationPrincipal UserDetails userDetails) {
+        pistolService.buyPistol(id, userDetails);
+        return "boughtItem";
     }
 
     @GetMapping("/assaultRifles/{id}")
     public String getAssaultRifleDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("firearm", assaultRifleService.getAssaultRifleDetails(id));
-        return "firearmDetails";
+        return "assaultRifleDetails";
+    }
+    @GetMapping("/assaultRifles/buy/{id}")
+    public String buyAssaultRifle(@PathVariable("id") Long id,
+                                  @AuthenticationPrincipal UserDetails userDetails) {
+        assaultRifleService.buyAssaultRifle(id, userDetails);
+        return "boughtItem";
     }
 
     @GetMapping("/machineGuns/{id}")
     public String getMachineGunDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("firearm", machineGunService.getMachineGunDetails(id));
-        return "firearmDetails";
+        return "machineGunDetails";
+    }
+    @GetMapping("/machineGuns/buy/{id}")
+    public String buyMachineGun(@PathVariable("id") Long id,
+                                  @AuthenticationPrincipal UserDetails userDetails) {
+        machineGunService.buyMachineGun(id, userDetails);
+        return "boughtItem";
     }
 
     @GetMapping("/snipers/{id}")
     public String getSniperDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("firearm", sniperService.getSniperDetails(id));
-        return "firearmDetails";
+        return "sniperDetails";
+    }
+    @GetMapping("/snipers/buy/{id}")
+    public String buySniper(@PathVariable("id") Long id,
+                                     @AuthenticationPrincipal UserDetails userDetails) {
+        sniperService.buySniper(id, userDetails);
+        return "boughtItem";
     }
 
     @GetMapping("/grenadeLaunchers/{id}")
     public String getGrenadeLauncherDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("firearm", grenadeLauncherService.getGrenadeLauncherDetails(id));
-        return "firearmDetails";
+        return "grenadeLauncherDetails";
+    }
+
+    @GetMapping("/grenadeLaunchers/buy/{id}")
+    public String buyGrenadeLauncher(@PathVariable("id") Long id,
+                                @AuthenticationPrincipal UserDetails userDetails) {
+        grenadeLauncherService.buyGrenadeLauncher(id, userDetails);
+        return "boughtItem";
     }
 }

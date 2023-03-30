@@ -2,10 +2,13 @@ package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.firearms.AssaultRifleEntity;
 import bg.softuni.armory.model.entity.firearms.MachineGunEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.repository.MachineGunRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,10 +20,12 @@ import java.util.stream.Collectors;
 public class MachineGunService {
     private final MachineGunRepository machineGunRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public MachineGunService(MachineGunRepository machineGunRepository, ModelMapper modelMapper) {
+    public MachineGunService(MachineGunRepository machineGunRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.machineGunRepository = machineGunRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedMachineGuns() {
@@ -127,5 +132,12 @@ public class MachineGunService {
     public FirearmViewDTO getMachineGunDetails(Long id) {
         MachineGunEntity machineGun = machineGunRepository.findById(id).get();
         return modelMapper.map(machineGun, FirearmViewDTO.class);
+    }
+
+    public void buyMachineGun(Long machineGunId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        MachineGunEntity machineGun = machineGunRepository.findById(machineGunId).get();
+        user.getBoughtMachineGuns().add(machineGun);
+        userRepository.save(user);
     }
 }

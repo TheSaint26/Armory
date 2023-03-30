@@ -43,9 +43,9 @@ padding-left: 20px;
             <p th:text="|Max Speed: ${ifv.getMaxSpeed()} kmph|"></p>
             <p th:text="|Max Range: ${ifv.getMaxRange()} km.|"></p>
             <p th:text="|Description: ${ifv.getDescription()}|"></p>
-            <p>
+            <form class="card-body" th:action="@{/weapons/ifv/buy/{id} (id=${ifv.getId()})}">
               <button class="btn btn-warning" th:text="|Buy for ${ifv.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
-            </p>
+            </form>
           </div>
         </div>
       </div>

@@ -2,11 +2,13 @@ package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.IFV.InfantryFightingVehicleEntity;
 import bg.softuni.armory.model.entity.tank.TankEntity;
-import bg.softuni.armory.model.entity.views.InfantryFightingVehicleViewDTO;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.TankViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.repository.TankRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -18,10 +20,12 @@ import java.util.stream.Collectors;
 public class TankService {
     private final TankRepository tankRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public TankService(TankRepository tankRepository, ModelMapper modelMapper) {
+    public TankService(TankRepository tankRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.tankRepository = tankRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedTanks() {
@@ -164,5 +168,12 @@ public class TankService {
     public TankViewDTO getTankDetails(Long id) {
         TankEntity tank = tankRepository.findById(id).get();
         return modelMapper.map(tank, TankViewDTO.class);
+    }
+
+    public void buyTank(Long tankId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        TankEntity tank = tankRepository.findById(tankId).get();
+        user.getBoughtTanks().add(tank);
+        userRepository.save(user);
     }
 }

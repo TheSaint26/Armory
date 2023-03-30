@@ -1,11 +1,15 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.entity.artillery.RocketArtilleryEntity;
 import bg.softuni.armory.model.entity.artillery.TrunkArtilleryEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.TrunkArtilleryViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.TrunkArtilleryType;
 import bg.softuni.armory.repository.TrunkArtilleryRepository;
+import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -17,10 +21,12 @@ import java.util.stream.Collectors;
 public class TrunkArtilleryService {
     private final TrunkArtilleryRepository trunkArtilleryRepository;
     private final ModelMapper modelMapper;
+    private final UserRepository userRepository;
 
-    public TrunkArtilleryService(TrunkArtilleryRepository trunkArtilleryRepository, ModelMapper modelMapper) {
+    public TrunkArtilleryService(TrunkArtilleryRepository trunkArtilleryRepository, ModelMapper modelMapper, UserRepository userRepository) {
         this.trunkArtilleryRepository = trunkArtilleryRepository;
         this.modelMapper = modelMapper;
+        this.userRepository = userRepository;
     }
 
     public void seedTrunkArtillery() {
@@ -163,5 +169,12 @@ public class TrunkArtilleryService {
             }
         }
         return null;
+    }
+
+    public void buyTrunkArtillery(Long trunkArtilleryId, UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        TrunkArtilleryEntity trunkArtillery = trunkArtilleryRepository.findById(trunkArtilleryId).get();
+        user.getBoughtTrunkArtillery().add(trunkArtillery);
+        userRepository.save(user);
     }
 }
