@@ -99,4 +99,9 @@ public class WeaponsController {
     public String weaponsForMassDestruction() {
         return "wmd";
     }
+
+    @GetMapping("/mine")
+    public String myWeapons() {
+        return "myWeapons";
+    }
 }

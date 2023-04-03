@@ -3,6 +3,7 @@ package bg.softuni.armory.service;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.user.UserLoginDTO;
 import bg.softuni.armory.model.entity.user.UserRegisterDTO;
+import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.AccountRole;
 import bg.softuni.armory.repository.RoleRepository;
 import bg.softuni.armory.repository.UserRepository;
@@ -16,6 +17,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -64,5 +67,62 @@ public class UserService {
        SecurityContextHolder
                .getContext()
                .setAuthentication(authentication);
+   }
+
+   public List<WeaponPictureAndNameViewDTO> getAllWeapons(UserDetails userDetails) {
+        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        List<WeaponPictureAndNameViewDTO> weaponsList = new ArrayList<>();
+
+        user.getBoughtPistols()
+                .stream()
+                .map(p -> modelMapper.map(p, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtAssaultRifles()
+                .stream()
+                .map(ar -> modelMapper.map(ar, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtMachineGuns()
+                .stream()
+                .map(mg -> modelMapper.map(mg, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtSnipers()
+                .stream()
+                .map(s -> modelMapper.map(s, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtGrenadeLaunchers()
+                .stream()
+                .map(gl -> modelMapper.map(gl, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtIfvs()
+                .stream()
+                .map(ifv -> modelMapper.map(ifv, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtTanks()
+                .stream()
+                .map(t -> modelMapper.map(t, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtTrunkArtillery()
+                .stream()
+                .map(trunkArtilleryEntity -> modelMapper.map(trunkArtilleryEntity, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtRocketArtillery()
+                .stream()
+                .map(rocketArtilleryEntity -> modelMapper.map(rocketArtilleryEntity, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        user.getBoughtAircraft()
+                .stream()
+                .map(aircraftEntity -> modelMapper.map(aircraftEntity, WeaponPictureAndNameViewDTO.class))
+                .forEach(weaponsList::add);
+
+        return weaponsList;
    }
 }

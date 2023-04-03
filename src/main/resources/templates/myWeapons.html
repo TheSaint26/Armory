@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body aircraft-body page-item" style="background-image: url('/images/my-weapons-img.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="body-div container d-flex justify-content-around">
+  <div>
+    <button style="width: 100px" id="loadMyWeapons">LOAD MY WEAPONS</button>
+  </div>
+  <div id="card-container" class="offers row mx-auto d-flex flex-row justify-content-center" style="margin-top: 40px;">
+
+  </div>
+</div>
+<script th:src="@{/js/myWeapons.js}"></script>
+</body>
+</html>

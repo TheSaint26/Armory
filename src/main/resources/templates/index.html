@@ -19,16 +19,15 @@
     <div class="container-fluid">
 <!--        <h1 id="welcome-text">ARMORY</h1>-->
         <img src="/images/armory_ili2.png" width="150px" height="50px" class="armory-logo">
-<!--        <h5 class="text-center text-white mt-5">-->
-<!--            Welcome to Armory,-->
-<!--            <span th:if="${@currentUser.isLoggedIn()}"-->
-<!--                  th:text="${@currentUser.getName()}">-->
-<!--            !-->
-<!--        </span>-->
-<!--            <span th:if="${@currentUser.isAnonymous()}">-->
-<!--            Anonymous! Have fun!-->
-<!--        </span>-->
-<!--        </h5>-->
+
+    </div>
+    <div id="card" class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+        <!--      <div class="card-img-top-wrapper">-->
+        <!--        <img class="card-img-top" th:src="${w.getImageUrl()}" alt="Image">-->
+        <!--      </div>-->
+        <!--      <div class="card-body pb-1">-->
+        <!--        <h5 class="card-title" th:text="${w.getName()}"></h5>-->
+        <!--      </div>-->
     </div>
 </body>
 <div class="blockquote-footer" th:replace="~{fragments/footer}"></div>
