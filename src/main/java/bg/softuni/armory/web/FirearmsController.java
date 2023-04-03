@@ -1,14 +1,16 @@
 package bg.softuni.armory.web;
 
+import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.service.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/weapons/firearms")
@@ -25,6 +27,11 @@ public class FirearmsController {
         this.machineGunService = machineGunService;
         this.sniperService = sniperService;
         this.grenadeLauncherService = grenadeLauncherService;
+    }
+
+    @ModelAttribute("firearmDTO")
+    public FirearmAddDTO initFirearmDTO() {
+        return new FirearmAddDTO();
     }
 
     @GetMapping("/pistols")
@@ -116,5 +123,24 @@ public class FirearmsController {
                                 @AuthenticationPrincipal UserDetails userDetails) {
         grenadeLauncherService.buyGrenadeLauncher(id, userDetails);
         return "boughtItem";
+    }
+
+    @GetMapping("/add/pistol")
+    public String addPistol() {
+        return "addPistol";
+    }
+
+    @PostMapping("/add/pistol")
+    public String addPistol(@Valid FirearmAddDTO firearmAddDTO,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("firearmDTO", firearmAddDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.firearmDTO", bindingResult);
+            return "redirect:/weapons/firearms/add/pistol";
+        }
+
+        pistolService.addPistol(firearmAddDTO);
+        return "redirect:/";
     }
 }

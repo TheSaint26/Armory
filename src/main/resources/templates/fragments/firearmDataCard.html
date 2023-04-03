@@ -3,14 +3,14 @@
   <p th:text="|Country of origin: ${firearm.getCountryOfOrigin()}|"></p>
   <p th:text="|Entered service: ${firearm.getEnteredService()} year|"></p>
   <p th:text="|Caliber: ${firearm.getCaliber()} mm.|"></p>
-  <p th:text="|Weight: ${firearm.getWeight()} kg.|"></p>
-  <p th:text="|Length: ${firearm.getLength()} sm.|"></p>
-  <p th:text="|Barrel length: ${firearm.getBarrelLength()} sm.|"></p>
-  <p th:text="|Muzzle velocity: ${firearm.getMuzzleVelocity()} m/s|"></p>
-  <p th:text="|Cyclic rate of fire: ${firearm.getCyclicRateOfFire()} rpm|"></p>
-  <p th:text="|Practical rate of fire: ${firearm.getPracticalRateOfFire()} rpm|"></p>
-  <p th:text="|Magazine capacity: ${firearm.getMagazineCapacity()} rounds|"></p>
-  <p th:text="|Sighting range: ${firearm.getSightingRange()} m.|"></p>
-  <p th:text="|Effective fire: ${firearm.getEffectiveFire()} m.|"></p>
-  <p th:text="|Description: ${firearm.getDescription()}|"></p>
+  <p th:text="|Weight: ${firearm.getWeight() ?: 'UNKNOWN'} kg.|"></p>
+  <p th:text="|Length: ${firearm.getLength() ?: 'UNKNOWN'} sm.|"></p>
+  <p th:text="|Barrel length: ${firearm.getBarrelLength() ?: 'UNKNOWN'} sm.|"></p>
+  <p th:text="|Muzzle velocity: ${firearm.getMuzzleVelocity() ?: 'UNKNOWN'} m/s|"></p>
+  <p th:text="|Cyclic rate of fire: ${firearm.getCyclicRateOfFire() ?: 'UNKNOWN'} rpm|"></p>
+  <p th:text="|Practical rate of fire: ${firearm.getPracticalRateOfFire() ?: 'UNKNOWN'} rpm|"></p>
+  <p th:text="|Magazine capacity: ${firearm.getMagazineCapacity() ?: 'UNKNOWN'} rounds|"></p>
+  <p th:text="|Sighting range: ${firearm.getSightingRange() ?: 'UNKNOWN'} m.|"></p>
+  <p th:text="|Effective fire: ${firearm.getEffectiveFire() ?: 'UNKNOWN'} m.|"></p>
+  <p th:text="|Description: ${firearm.getDescription() ?: 'N/A'}|"></p>
 </div>

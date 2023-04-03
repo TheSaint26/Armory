@@ -21,17 +21,21 @@ function renderBoughtWeapons(event) {
 
 function createCard(weaponData) {
     let mainDiv = document.createElement('DIV');
-    mainDiv.setAttribute("class", "offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0");
+    // mainDiv.setAttribute("class", "offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0");
+    mainDiv.setAttribute("class", "card");
+    mainDiv.setAttribute("style", "width: 10rem;");
     let cardDiv = document.createElement("DIV");
     cardDiv.setAttribute("class","card-img-top-wrapper");
     let image = document.createElement("IMG");
     image.setAttribute("class", "card-img-top");
-    image.setAttribute("width", "100");
-    image.setAttribute("height", "100");
+    image.setAttribute("width", "100px");
+    image.setAttribute("height", "100px");
     image.src = weaponData.imageUrl;
     cardDiv.appendChild(image);
     let title = document.createElement("DIV");
-    title.setAttribute("class", "card-body pb-1");
+    // title.setAttribute("class", "card-body pb-1");
+    title.setAttribute("class", "card");
+    title.setAttribute("style", "width: 18rem;");
     let titleH = document.createElement("H5");
     titleH.innerHTML = weaponData.name;
     title.appendChild(titleH);

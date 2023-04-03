@@ -1,9 +1,11 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.entity.firearms.PistolEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.FireArmType;
 import bg.softuni.armory.repository.PistolRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -147,5 +149,11 @@ public class PistolService {
         PistolEntity pistol = pistolRepository.findById(pistolId).get();
         user.getBoughtPistols().add(pistol);
         userRepository.save(user);
+    }
+
+    public void addPistol(FirearmAddDTO firearmAddDTO) {
+        PistolEntity pistol = modelMapper.map(firearmAddDTO, PistolEntity.class);
+        pistol.setType(FireArmType.PISTOL);
+        pistolRepository.save(pistol);
     }
 }
