@@ -25,7 +25,9 @@ function createCard(weaponData) {
     let cardDiv = document.createElement("DIV");
     cardDiv.setAttribute("class","card-img-top-wrapper");
     let image = document.createElement("IMG");
-    image.setAttribute("class", "card-img-top")
+    image.setAttribute("class", "card-img-top");
+    image.setAttribute("width", "100");
+    image.setAttribute("height", "100");
     image.src = weaponData.imageUrl;
     cardDiv.appendChild(image);
     let title = document.createElement("DIV");

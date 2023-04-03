@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="body page-item" style="background-image: url('/images/all_weapons_background.JPG')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="body-div container d-flex justify-content-around">
+  <div class="row" style="display: flex">
+    <ul>
+    <li>
+      <a th:href="@{/weapons/add/pistol}">
+        <button type="button"  class="btn btn-primary btn-lg">Add Pistol</button>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{/weapons/add/assaultRifle}">
+        <button type="button"  class="btn btn-primary btn-lg">Add Assault Rifle</button>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{/weapons/add/Machine Gun}">
+        <button type="button"  class="btn btn-primary btn-lg">Add Machine Gun</button>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{/weapons/add/sniper}">
+        <button type="button"  class="btn btn-primary btn-lg">Add Sniper</button>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{/weapons/add/grenadeLauncher}">
+        <button type="button"  class="btn btn-primary btn-lg">Add Grenade Launcher</button>
+      </a>
+    </li>
+    </ul>
+  </div>
+  <div class="row" style="display: flex">
+    <ul>
+      <li>
+        <a th:href="@{/weapons/add/ifv}">
+          <button type="button" class="btn btn-primary btn-lg">Add Infantry Fighting Vehicle</button>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/weapons/add/tank}">
+          <button type="button" class="btn btn-primary btn-lg">Add Tank</button>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/weapons/add/trunkArtillery}">
+          <button type="button" class="btn btn-primary btn-lg">Add Trunk Artillery</button>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/weapons/add/rocketArtillery}">
+          <button type="button" class="btn btn-primary btn-lg">Add Rocket Artillery</button>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/weapons/add/aircraft}">
+          <button type="button" class="btn btn-primary btn-lg">Add Aircraft</button>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/weapons/add/nuclearBomb}">
+          <button type="button" class="btn btn-primary btn-lg">Add Nuclear Bomb</button>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/weapons/add/nuclearRocket}">
+          <button type="button" class="btn btn-primary btn-lg">Add Nuclear Rocket</button>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+</body>
+<div class="blockquote-footer" th:replace="~{fragments/footer}"></div>
+</html>

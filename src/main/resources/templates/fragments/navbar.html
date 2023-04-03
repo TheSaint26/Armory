@@ -21,14 +21,11 @@
                     <a class="nav-link" th:href="@{/weapons/all}">All Weapons</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
-                    <a class="nav-link" href="/offers/add">Add Weapon</a>
+                    <a class="nav-link" href="/weapons/add">Add Weapon</a>
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <a id="myWeaponsBtn" class="nav-link" href="/weapons/mine">My Weapons</a>
                 </li>
-<!--                <li class="nav-item" sec:authorize="isAuthenticated()">-->
-<!--                    <a class="nav-link" href="/offers/all">All Offers</a>-->
-<!--                </li>-->
                 <li class="nav-item dropdown" sec:authorize="hasRole('ADMINISTRATOR')">
                     <a class="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button"
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
