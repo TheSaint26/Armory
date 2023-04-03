@@ -115,30 +115,6 @@ form.main-form {
 .body-div {
      padding-top: 100px;
 }
-/*.all-weapons-body{*/
-/*     background-image: url("/images/all_weapons_background.JPG");*/
-/*}*/
-
-/*.firearms-body {*/
-/*     background-image: url("/images/10717firearms.jpeg");*/
-/*}*/
-
-/*.ifv-body {*/
-/*     background-image: url("/images/ifv-image.jpg");*/
-/*}*/
-
-/*.tanks-body {*/
-/*     background-image: url("/images/tank.jpg");*/
-/*}*/
-/*.artillery-body {*/
-/*     background-image: url("/images/artillery.jpg");*/
-/*}*/
-/*.aircraft-body {*/
-/*     background-image: url("/images/aircraft.jpg");*/
-/*}*/
-/*.wmd-body {*/
-/*     background-image: url("/images/nuke.jpg");*/
-/*}*/
 
 .footer {
      position:absolute;
@@ -146,6 +122,13 @@ form.main-form {
      width:100%;
      height:60px;   /* Height of the footer */
      background:#6cf;
+}
+
+#loadMyWeapons {
+     position: absolute;
+}
+#loadMyWeaponsBtn {
+     background-color: #005cbf;
 }
 
 
