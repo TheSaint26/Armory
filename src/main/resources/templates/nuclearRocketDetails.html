@@ -26,13 +26,13 @@ padding-left: 20px;
           <div class="card-body">
             <h4 th:text="${nuclearRocket.getName()}">Infantry Fighting Vehicle name</h4>
             <p th:text="|Used by: ${nuclearRocket.getUsedBy()}|"></p>
-            <p th:text="|Mass: ${nuclearRocket.getMass()} kg.|"></p>
-            <p th:text="|Length: ${nuclearRocket.getLength()} m.|"></p>
-            <p th:text="|Blast Yield: ${nuclearRocket.getBlastYield()} mt.|"></p>
-            <p th:text="|Warhead: ${nuclearRocket.getWarhead()}|"></p>
-            <p th:text="|Max Speed: ${nuclearRocket.getMaxSpeed()} kmph|"></p>
-            <p th:text="|Operational Range: ${nuclearRocket.getOperationalRange()} km.|"></p>
-            <p th:text="|Description: ${nuclearRocket.getDescription()} mt.|"></p>
+            <p th:text="|Mass: ${nuclearRocket.getMass() ?: 'UNKNOWN'} kg.|"></p>
+            <p th:text="|Length: ${nuclearRocket.getLength() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Blast Yield: ${nuclearRocket.getBlastYield() ?: 'UNKNOWN'} mt.|"></p>
+            <p th:text="|Warhead: ${nuclearRocket.getWarhead() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Max Speed: ${nuclearRocket.getMaxSpeed() ?: 'UNKNOWN'} kmph|"></p>
+            <p th:text="|Operational Range: ${nuclearRocket.getOperationalRange() ?: 'UNKNOWN'} km.|"></p>
+            <p th:text="|Description: ${nuclearRocket.getDescription() ?: 'N/A'} |"></p>
 
             <p>
             <h2 style="color: red">This weapon is extremely dangerous and is not for sale!</h2>

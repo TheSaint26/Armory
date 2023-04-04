@@ -26,10 +26,10 @@ padding-left: 20px;
           <div class="card-body">
             <h4 th:text="${nuclearBomb.getName()}">Infantry Fighting Vehicle name</h4>
             <p th:text="|Used by: ${nuclearBomb.getUsedBy()}|"></p>
-            <p th:text="|Mass: ${nuclearBomb.getMass()} kg.|"></p>
-            <p th:text="|Length: ${nuclearBomb.getLength()} m.|"></p>
-            <p th:text="|Blast Yield: ${nuclearBomb.getBlastYield()} mt.|"></p>
-            <p th:text="|Description: ${nuclearBomb.getDescription()} mt.|"></p>
+            <p th:text="|Mass: ${nuclearBomb.getMass() ?: 'UNKNOWN'} kg.|"></p>
+            <p th:text="|Length: ${nuclearBomb.getLength() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Blast Yield: ${nuclearBomb.getBlastYield() ?: 'UNKNOWN'} mt.|"></p>
+            <p th:text="|Description: ${nuclearBomb.getDescription() ?: 'N/A'} mt.|"></p>
 
             <p>
               <h2 style="color: red">This weapon is extremely dangerous and is not for sale!</h2>

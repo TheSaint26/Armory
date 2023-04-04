@@ -27,17 +27,17 @@ padding-left: 20px;
             <h4 th:text="${trunkArtillery.getName()}">Infantry Fighting Vehicle name</h4>
             <p th:text="|Country of origin: ${trunkArtillery.getCountryOfOrigin()}|"></p>
             <p th:text="|Type: ${trunkArtillery.getType()}|"></p>
-            <p th:text="|Entered service: ${trunkArtillery.getEnteredService()} year|"></p>
-            <p th:text="|Crew: ${trunkArtillery.getCrew()} people|"></p>
-            <p th:text="|Main Gun Caliber: ${trunkArtillery.getMainGunCaliber()} mm.|"></p>
-            <p th:text="|Max Firing Range: ${trunkArtillery.getMaxFiringRange()} km.|"></p>
-            <p th:text="|Max Rate of Fire: ${trunkArtillery.getMaxRateOfFire()} rpm|"></p>
+            <p th:text="|Entered service: ${trunkArtillery.getEnteredService() ?: 'UNKNOWN'} year|"></p>
+            <p th:text="|Crew: ${trunkArtillery.getCrew() ?: 'UNKNOWN'} people|"></p>
+            <p th:text="|Main Gun Caliber: ${trunkArtillery.getMainGunCaliber() ?: 'UNKNOWN'} mm.|"></p>
+            <p th:text="|Max Firing Range: ${trunkArtillery.getMaxFiringRange() ?: 'UNKNOWN'} km.|"></p>
+            <p th:text="|Max Rate of Fire: ${trunkArtillery.getMaxRateOfFire() ?: 'UNKNOWN'} rpm|"></p>
             <p th:text="|Has Machine Gun: ${trunkArtillery.hasMachineGun == true ? 'YES' : 'NO'}|"></p>
             <p th:text="|Machine Gun Caliber: ${trunkArtillery.getMachineGunCaliber() == null ? 'N/A' : trunkArtillery.getMachineGunCaliber() + ' mm.'}|"></p>
-            <p th:text="|Weight: ${trunkArtillery.getWeight()} t.|"></p>
-            <p th:text="|Full Length: ${trunkArtillery.getFullLength()} m.|"></p>
-            <p th:text="|Hull Length: ${trunkArtillery.getHullLength()} m.|"></p>
-            <p th:text="|Description: ${trunkArtillery.getDescription()}|"></p>
+            <p th:text="|Weight: ${trunkArtillery.getWeight() ?: 'UNKNOWN'} t.|"></p>
+            <p th:text="|Full Length: ${trunkArtillery.getFullLength() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Hull Length: ${trunkArtillery.getHullLength() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Description: ${trunkArtillery.getDescription() ?: 'UNKNOWN'}|"></p>
             <form class="card-body" th:action="@{/weapons/artillery/trunk/buy/{id} (id=${trunkArtillery.getId()})}">
               <button class="btn btn-warning" th:text="|Buy for ${trunkArtillery.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
             </form>

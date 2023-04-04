@@ -29,11 +29,6 @@ public class FirearmsController {
         this.grenadeLauncherService = grenadeLauncherService;
     }
 
-    @ModelAttribute("firearmDTO")
-    public FirearmAddDTO initFirearmDTO() {
-        return new FirearmAddDTO();
-    }
-
     @GetMapping("/pistols")
     public String pistols(Model model) {
         model.addAttribute("pistolsList", pistolService.getPistolsList());
@@ -123,24 +118,5 @@ public class FirearmsController {
                                 @AuthenticationPrincipal UserDetails userDetails) {
         grenadeLauncherService.buyGrenadeLauncher(id, userDetails);
         return "boughtItem";
-    }
-
-    @GetMapping("/add/pistol")
-    public String addPistol() {
-        return "addPistol";
-    }
-
-    @PostMapping("/add/pistol")
-    public String addPistol(@Valid FirearmAddDTO firearmAddDTO,
-                            BindingResult bindingResult,
-                            RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("firearmDTO", firearmAddDTO);
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.firearmDTO", bindingResult);
-            return "redirect:/weapons/firearms/add/pistol";
-        }
-
-        pistolService.addPistol(firearmAddDTO);
-        return "redirect:/";
     }
 }

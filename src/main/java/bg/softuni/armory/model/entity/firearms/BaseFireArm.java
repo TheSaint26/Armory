@@ -36,7 +36,7 @@ public abstract class BaseFireArm extends BaseEntity {
     private Integer effectiveFire;
     @Column(name = "price")
     private BigDecimal price;
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
     private String imageUrl;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;

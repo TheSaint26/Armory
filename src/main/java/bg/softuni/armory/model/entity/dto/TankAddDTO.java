@@ -1,65 +1,50 @@
-package bg.softuni.armory.model.entity.tank;
+package bg.softuni.armory.model.entity.dto;
 
-import bg.softuni.armory.model.entity.BaseEntity;
-
-import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "tanks")
-public class TankEntity extends BaseEntity {
-    @Column(name = "name", nullable = false, unique = true)
+public class TankAddDTO {
+    @NotBlank(message = "Please enter a tank name!")
+    @Size(min = 2, message = "Tank name should be at least 2 characters!")
     private String name;
-    @Column(name = "country_of_origin", nullable = false)
+    @NotBlank(message = "Please enter country of origin!")
+    @Size(min = 2, message = "Country of origin should be at least 2 characters!")
     private String countryOfOrigin;
-    @Column(name = "entered_sevice", nullable = false)
+    @NotNull(message = "Please, enter year!")
+    @Min(value = 1800, message = "Please enter a reasonable year!")
     private Integer enteredService;
-    @Column(name = "crew")
     private Integer crew;
-    @Column(name = "main_gun")
     private String mainGun;
-    @Column(name = "weight")
     private Double weight;
-    @Column(name = "full_length")
     private Double fullLength;
-    @Column(name = "hull_length")
     private Double hullLength;
-    @Column(name = "width")
     private Double width;
-    @Column(name = "height")
     private Double height;
-    @Column(name = "main_gun_caliber")
     private Integer mainGunCaliber;
-    @Column(name = "secondary_armament")
     private String secondaryArmament;
-    @Column(name = "machine_gun")
     private String machineGun;
-    @Column(name = "main_gun_ammo_load")
     private Integer mainGunAmmoLoad;
-    @Column(name = "machine_gun_ammo_load")
     private Integer machineGunAmmoLoad;
-    @Column(name = "engine")
     private String engine;
-    @Column(name = "max_road_speed")
     private Integer maxRoadSpeed;
-    @Column(name = "max_range")
     private Integer maxRange;
-    @Column(name = "price")
     private BigDecimal price;
-    @Column(name = "description", columnDefinition = "TEXT")
-    private String description;
-    @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Please enter tank image URL!")
+    @Size(min = 5, message = "Tank image URL must be at least 5 characters!")
     private String imageUrl;
+    private String description;
 
-
-    public TankEntity() {
+    public TankAddDTO() {
     }
 
     public String getName() {
         return name;
     }
 
-    public TankEntity setName(String name) {
+    public TankAddDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -68,7 +53,7 @@ public class TankEntity extends BaseEntity {
         return countryOfOrigin;
     }
 
-    public TankEntity setCountryOfOrigin(String countryOfOrigin) {
+    public TankAddDTO setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
         return this;
     }
@@ -77,7 +62,7 @@ public class TankEntity extends BaseEntity {
         return enteredService;
     }
 
-    public TankEntity setEnteredService(Integer enteredService) {
+    public TankAddDTO setEnteredService(Integer enteredService) {
         this.enteredService = enteredService;
         return this;
     }
@@ -86,7 +71,7 @@ public class TankEntity extends BaseEntity {
         return crew;
     }
 
-    public TankEntity setCrew(Integer crew) {
+    public TankAddDTO setCrew(Integer crew) {
         this.crew = crew;
         return this;
     }
@@ -95,7 +80,7 @@ public class TankEntity extends BaseEntity {
         return mainGun;
     }
 
-    public TankEntity setMainGun(String mainGun) {
+    public TankAddDTO setMainGun(String mainGun) {
         this.mainGun = mainGun;
         return this;
     }
@@ -104,7 +89,7 @@ public class TankEntity extends BaseEntity {
         return weight;
     }
 
-    public TankEntity setWeight(Double weight) {
+    public TankAddDTO setWeight(Double weight) {
         this.weight = weight;
         return this;
     }
@@ -113,7 +98,7 @@ public class TankEntity extends BaseEntity {
         return fullLength;
     }
 
-    public TankEntity setFullLength(Double fullLength) {
+    public TankAddDTO setFullLength(Double fullLength) {
         this.fullLength = fullLength;
         return this;
     }
@@ -122,7 +107,7 @@ public class TankEntity extends BaseEntity {
         return hullLength;
     }
 
-    public TankEntity setHullLength(Double hullLength) {
+    public TankAddDTO setHullLength(Double hullLength) {
         this.hullLength = hullLength;
         return this;
     }
@@ -131,7 +116,7 @@ public class TankEntity extends BaseEntity {
         return width;
     }
 
-    public TankEntity setWidth(Double width) {
+    public TankAddDTO setWidth(Double width) {
         this.width = width;
         return this;
     }
@@ -140,7 +125,7 @@ public class TankEntity extends BaseEntity {
         return height;
     }
 
-    public TankEntity setHeight(Double height) {
+    public TankAddDTO setHeight(Double height) {
         this.height = height;
         return this;
     }
@@ -149,7 +134,7 @@ public class TankEntity extends BaseEntity {
         return mainGunCaliber;
     }
 
-    public TankEntity setMainGunCaliber(Integer mainGunCaliber) {
+    public TankAddDTO setMainGunCaliber(Integer mainGunCaliber) {
         this.mainGunCaliber = mainGunCaliber;
         return this;
     }
@@ -158,7 +143,7 @@ public class TankEntity extends BaseEntity {
         return secondaryArmament;
     }
 
-    public TankEntity setSecondaryArmament(String secondaryArmament) {
+    public TankAddDTO setSecondaryArmament(String secondaryArmament) {
         this.secondaryArmament = secondaryArmament;
         return this;
     }
@@ -167,7 +152,7 @@ public class TankEntity extends BaseEntity {
         return machineGun;
     }
 
-    public TankEntity setMachineGun(String machineGun) {
+    public TankAddDTO setMachineGun(String machineGun) {
         this.machineGun = machineGun;
         return this;
     }
@@ -176,7 +161,7 @@ public class TankEntity extends BaseEntity {
         return mainGunAmmoLoad;
     }
 
-    public TankEntity setMainGunAmmoLoad(Integer mainGunAmmoLoad) {
+    public TankAddDTO setMainGunAmmoLoad(Integer mainGunAmmoLoad) {
         this.mainGunAmmoLoad = mainGunAmmoLoad;
         return this;
     }
@@ -185,7 +170,7 @@ public class TankEntity extends BaseEntity {
         return machineGunAmmoLoad;
     }
 
-    public TankEntity setMachineGunAmmoLoad(Integer machineGunAmmoLoad) {
+    public TankAddDTO setMachineGunAmmoLoad(Integer machineGunAmmoLoad) {
         this.machineGunAmmoLoad = machineGunAmmoLoad;
         return this;
     }
@@ -194,7 +179,7 @@ public class TankEntity extends BaseEntity {
         return engine;
     }
 
-    public TankEntity setEngine(String engine) {
+    public TankAddDTO setEngine(String engine) {
         this.engine = engine;
         return this;
     }
@@ -203,7 +188,7 @@ public class TankEntity extends BaseEntity {
         return maxRoadSpeed;
     }
 
-    public TankEntity setMaxRoadSpeed(Integer maxRoadSpeed) {
+    public TankAddDTO setMaxRoadSpeed(Integer maxRoadSpeed) {
         this.maxRoadSpeed = maxRoadSpeed;
         return this;
     }
@@ -212,7 +197,7 @@ public class TankEntity extends BaseEntity {
         return maxRange;
     }
 
-    public TankEntity setMaxRange(Integer maxRange) {
+    public TankAddDTO setMaxRange(Integer maxRange) {
         this.maxRange = maxRange;
         return this;
     }
@@ -221,17 +206,8 @@ public class TankEntity extends BaseEntity {
         return price;
     }
 
-    public TankEntity setPrice(BigDecimal price) {
+    public TankAddDTO setPrice(BigDecimal price) {
         this.price = price;
-        return this;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public TankEntity setDescription(String description) {
-        this.description = description;
         return this;
     }
 
@@ -239,8 +215,17 @@ public class TankEntity extends BaseEntity {
         return imageUrl;
     }
 
-    public TankEntity setImageUrl(String imageUrl) {
+    public TankAddDTO setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public TankAddDTO setDescription(String description) {
+        this.description = description;
         return this;
     }
 }

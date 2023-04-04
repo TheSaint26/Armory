@@ -27,22 +27,22 @@ padding-left: 20px;
             <h4 th:text="${ifv.getName()}">Infantry Fighting Vehicle name</h4>
             <p th:text="|Country of origin: ${ifv.getCountryOfOrigin()}|"></p>
             <p th:text="|Entered service: ${ifv.getEnteredService()} year|"></p>
-            <p th:text="|Crew: ${ifv.getCrew()} people|"></p>
-            <p th:text="|Personel: ${ifv.getPersonnel()} people|"></p>
-            <p th:text="|Main Gun: ${ifv.getMainGun()}|"></p>
-            <p th:text="|Main Gun Caliber: ${ifv.getMainGunCaliber()} mm.|"></p>
-            <p th:text="|Weight: ${ifv.getWeight()} t.|"></p>
-            <p th:text="|Length: ${ifv.getLength()} m.|"></p>
-            <p th:text="|Width: ${ifv.getWidth()} m.|"></p>
-            <p th:text="|Height: ${ifv.getHeight()} m.|"></p>
-            <p th:text="|Anti-Tank Guided Weapon: ${ifv.getATGW()}|"></p>
-            <p th:text="|Anti-Tank Guided Weapon Ammo Load: ${ifv.getAtgwAmmoLoad()} rounds|"></p>
-            <p th:text="|Machine Gun: ${ifv.getMachineGun()}|"></p>
-            <p th:text="|Machine Gun Ammo Load: ${ifv.getMachineGunAmmoLoad()} rounds|"></p>
-            <p th:text="|Engine: ${ifv.getEngine()}|"></p>
-            <p th:text="|Max Speed: ${ifv.getMaxSpeed()} kmph|"></p>
-            <p th:text="|Max Range: ${ifv.getMaxRange()} km.|"></p>
-            <p th:text="|Description: ${ifv.getDescription()}|"></p>
+            <p th:text="|Crew: ${ifv.getCrew() ?: 'UNKNOWN'} people|"></p>
+            <p th:text="|Personel: ${ifv.getPersonnel() ?: 'UNKNOWN'} people|"></p>
+            <p th:text="|Main Gun: ${ifv.getMainGun() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Main Gun Caliber: ${ifv.getMainGunCaliber() ?: 'UNKNOWN'} mm.|"></p>
+            <p th:text="|Weight: ${ifv.getWeight() ?: 'UNKNOWN'} t.|"></p>
+            <p th:text="|Length: ${ifv.getLength() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Width: ${ifv.getWidth() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Height: ${ifv.getHeight() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Anti-Tank Guided Weapon: ${ifv.getATGW() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Anti-Tank Guided Weapon Ammo Load: ${ifv.getAtgwAmmoLoad() ?: 'UNKNOWN'} rounds|"></p>
+            <p th:text="|Machine Gun: ${ifv.getMachineGun() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Machine Gun Ammo Load: ${ifv.getMachineGunAmmoLoad() ?: 'UNKNOWN'} rounds|"></p>
+            <p th:text="|Engine: ${ifv.getEngine() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Max Speed: ${ifv.getMaxSpeed() ?: 'UNKNOWN'} kmph|"></p>
+            <p th:text="|Max Range: ${ifv.getMaxRange() ?: 'UNKNOWN'} km.|"></p>
+            <p th:text="|Description: ${ifv.getDescription() ?: 'N/A'}|"></p>
             <form class="card-body" th:action="@{/weapons/ifv/buy/{id} (id=${ifv.getId()})}">
               <button class="btn btn-warning" th:text="|Buy for ${ifv.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
             </form>
@@ -50,15 +50,6 @@ padding-left: 20px;
         </div>
       </div>
     </div>
-    <!--    <div class="img-thumbnail">-->
-    <!--      <img th:src="${firearm.imageUrl}" width="300px" height="300px">-->
-    <!--      <div class="text align-content-xl-end">-->
-    <!--        <h4 th:text="${firearm.name}"></h4>-->
-    <!--      </div>-->
-    <!--    </div>-->
-    <!--    <div class="text">-->
-    <!--      <h4 th:text="${firearm.name}"></h4>-->
-    <!--    </div>-->
   </div>
 </main>
 </body>

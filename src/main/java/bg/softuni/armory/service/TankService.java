@@ -1,6 +1,7 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.IFV.InfantryFightingVehicleEntity;
+import bg.softuni.armory.model.entity.dto.TankAddDTO;
 import bg.softuni.armory.model.entity.tank.TankEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.TankViewDTO;
@@ -175,5 +176,10 @@ public class TankService {
         TankEntity tank = tankRepository.findById(tankId).get();
         user.getBoughtTanks().add(tank);
         userRepository.save(user);
+    }
+
+    public void addTank(TankAddDTO tankAddDTO) {
+        TankEntity tank = modelMapper.map(tankAddDTO, TankEntity.class);
+        tankRepository.save(tank);
     }
 }

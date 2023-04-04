@@ -28,15 +28,15 @@ padding-left: 20px;
             <p th:text="|Country of origin: ${rocketArtillery.getCountryOfOrigin()}|"></p>
             <p th:text="|Type: ${rocketArtillery.getType()}|"></p>
             <p th:text="|Entered service: ${rocketArtillery.getEnteredService()} year|"></p>
-            <p th:text="|Caliber: ${rocketArtillery.getCaliber()} mm.|"></p>
-            <p th:text="|Number of Tubes: ${rocketArtillery.getNumberOfTubes()}|"></p>
-            <p th:text="|Rocket Weight: ${rocketArtillery.getRocketWeight()} kg.|"></p>
-            <p th:text="|Warhead Weight: ${rocketArtillery.getWarheadWeight()} kg.|"></p>
-            <p th:text="|Max Firing Range: ${rocketArtillery.getMaxFiringRange()} km.|"></p>
-            <p th:text="|Full Salvo Duration: ${rocketArtillery.getFullSalvoDuration()} sec.|"></p>
-            <p th:text="|Reloading Time: ${rocketArtillery.getReloadingTime()} min.|"></p>
-            <p th:text="|Engine: ${rocketArtillery.getEngine()} |"></p>
-            <p th:text="|Description: ${rocketArtillery.getDescription()}|"></p>
+            <p th:text="|Caliber: ${rocketArtillery.getCaliber() ?: 'UNKNOWN'} mm.|"></p>
+            <p th:text="|Number of Tubes: ${rocketArtillery.getNumberOfTubes() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Rocket Weight: ${rocketArtillery.getRocketWeight() ?: 'UNKNOWN'} kg.|"></p>
+            <p th:text="|Warhead Weight: ${rocketArtillery.getWarheadWeight() ?: 'UNKNOWN'} kg.|"></p>
+            <p th:text="|Max Firing Range: ${rocketArtillery.getMaxFiringRange() ?: 'UNKNOWN'} km.|"></p>
+            <p th:text="|Full Salvo Duration: ${rocketArtillery.getFullSalvoDuration() ?: 'UNKNOWN'} sec.|"></p>
+            <p th:text="|Reloading Time: ${rocketArtillery.getReloadingTime() ?: 'UNKNOWN'} min.|"></p>
+            <p th:text="|Engine: ${rocketArtillery.getEngine() ?: 'UNKNOWN'} |"></p>
+            <p th:text="|Description: ${rocketArtillery.getDescription() ?: 'UNKNOWN'}|"></p>
             <form class="card-body" th:action="@{/weapons/artillery/rocket/buy/{id} (id=${rocketArtillery.getId()})}">
               <button class="btn btn-warning" th:text="|Buy for ${rocketArtillery.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
             </form>

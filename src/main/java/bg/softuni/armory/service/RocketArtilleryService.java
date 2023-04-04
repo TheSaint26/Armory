@@ -1,6 +1,7 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.artillery.RocketArtilleryEntity;
+import bg.softuni.armory.model.entity.dto.RocketArtilleryAddDTO;
 import bg.softuni.armory.model.entity.firearms.SniperEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.RocketArtilleryViewDTO;
@@ -161,5 +162,10 @@ public class RocketArtilleryService {
         RocketArtilleryEntity rocketArtillery = rocketArtilleryRepository.findById(rocketArtilleryId).get();
         user.getBoughtRocketArtillery().add(rocketArtillery);
         userRepository.save(user);
+    }
+
+    public void addRocketArtillery(RocketArtilleryAddDTO rocketArtilleryAddDTO) {
+        RocketArtilleryEntity rocketArtillery = modelMapper.map(rocketArtilleryAddDTO, RocketArtilleryEntity.class);
+        rocketArtilleryRepository.save(rocketArtillery);
     }
 }

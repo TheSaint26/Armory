@@ -1,0 +1,174 @@
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <p>
+    <h5>Fields marked with '*' are mandatory!</h5>
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="name" class="text-white font-weight-bold">Name*</label>
+    <input  id="name"
+            name="name"
+            th:field="*{name}"
+            th:errorclass="'is-invalid bg-danger'"
+            type="text"
+            class="form-control"
+            placeholder="Name"/>
+    <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name error message</small>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="countryOfOrigin" class="text-white font-weight-bold">Country of Origin*</label>
+    <input  id="countryOfOrigin"
+            name="countryOfOrigin"
+            th:field="*{countryOfOrigin}"
+            th:errorclass="'is-invalid bg-danger'"
+            type="text"
+            class="form-control"
+            placeholder="Country of Origin"/>
+    <small th:if="${#fields.hasErrors('countryOfOrigin')}" th:errors="*{countryOfOrigin}" class="text-danger">Country of origin error message</small>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="enteredService" class="text-white font-weight-bold">Entered Service*</label>
+    <input  id="enteredService"
+            name="enteredService"
+            th:field="*{enteredService}"
+            th:errorclass="'is-invalid bg-danger'"
+            type="text"
+            class="form-control"
+            placeholder="Entered Service"/>
+    <small th:if="${#fields.hasErrors('enteredService')}" th:errors="*{enteredService}" class="text-danger">Entered service error message</small>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="caliber" class="text-white font-weight-bold">Caliber*</label>
+    <input  id="caliber"
+            name="caliber"
+            th:field="*{caliber}"
+            th:errorclass="'is-invalid bg-danger'"
+            type="text"
+            class="form-control"
+            placeholder="Caliber"/>
+    <small th:if="${#fields.hasErrors('caliber')}" th:errors="*{caliber}" class="text-danger">Caliber error message</small>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="imageUrl" class="text-white font-weight-bold">Image URL*</label>
+    <input  id="imageUrl"
+            name="imageUrl"
+            th:field="*{imageUrl}"
+            th:errorclass="'is-invalid bg-danger'"
+            type="text"
+            class="form-control"
+            placeholder="Image URL"/>
+    <small th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="text-danger">Image URL error message</small>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="price" class="text-white font-weight-bold">Price*</label>
+    <input  id="price"
+            name="price"
+            th:field="*{price}"
+            th:errorclass="'is-invalid bg-danger'"
+            type="text"
+            class="form-control"
+            placeholder="Price"/>
+    <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger">Price error message</small>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="weight" class="text-white font-weight-bold">Weight</label>
+    <input  id="weight"
+            name="weight"
+            th:field="*{weight}"
+            type="text"
+            class="form-control"
+            placeholder="Weight"/>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="length" class="text-white font-weight-bold">Length</label>
+    <input  id="length"
+            name="length"
+            th:field="*{length}"
+            type="text"
+            class="form-control"
+            placeholder="Length"/>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="barrelLength" class="text-white font-weight-bold">Barrel Length</label>
+    <input  id="barrelLength"
+            name="barrelLength"
+            th:field="*{barrelLength}"
+            type="text"
+            class="form-control"
+            placeholder="Barrel Length"/>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="muzzleVelocity" class="text-white font-weight-bold">Muzzle Velocity</label>
+    <input  id="muzzleVelocity"
+            name="muzzleVelocity"
+            th:field="*{muzzleVelocity}"
+            type="text"
+            class="form-control"
+            placeholder="Muzzle Velocity"/>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="cyclicRateOfFire" class="text-white font-weight-bold">Cyclic Rate of Fire</label>
+    <input  id="cyclicRateOfFire"
+            name="cyclicRateOfFire"
+            th:field="*{cyclicRateOfFire}"
+            type="text"
+            class="form-control"
+            placeholder="Cyclic Rate of Fire"/>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="magazineCapacity" class="text-white font-weight-bold">Magazine Capacity</label>
+    <input  id="magazineCapacity"
+            name="magazineCapacity"
+            th:field="*{magazineCapacity}"
+            type="text"
+            class="form-control"
+            placeholder="Magazine Capacity"/>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="sightingRange" class="text-white font-weight-bold">Sighting Range</label>
+    <input  id="sightingRange"
+            name="sightingRange"
+            th:field="*{sightingRange}"
+            type="text"
+            class="form-control"
+            placeholder="Sighting Range"/>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group col-md-6 mb-3">
+    <label for="description" class="text-white font-weight-bold">Description</label>
+    <input  id="description"
+            name="description"
+            th:field="*{description}"
+            type="text"
+            class="form-control"
+            placeholder="Description"/>
+  </div>
+</div>
+<div class="row">

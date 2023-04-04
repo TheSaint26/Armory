@@ -2,6 +2,7 @@ package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.aircraft.AircraftEntity;
 import bg.softuni.armory.model.entity.artillery.TrunkArtilleryEntity;
+import bg.softuni.armory.model.entity.dto.AircraftAddDTO;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.AircraftViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
@@ -224,5 +225,10 @@ public class AircraftService {
         AircraftEntity aircraft = aircraftRepository.findById(aircraftId).get();
         user.getBoughtAircraft().add(aircraft);
         userRepository.save(user);
+    }
+
+    public void addAircraft(AircraftAddDTO aircraftAddDTO) {
+        AircraftEntity aircraft = modelMapper.map(aircraftAddDTO, AircraftEntity.class);
+        aircraftRepository.save(aircraft);
     }
 }

@@ -1,5 +1,6 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.entity.dto.NuclearRocketAddDTO;
 import bg.softuni.armory.model.entity.views.NuclearRocketViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.entity.wmd.NuclearRocketEntity;
@@ -70,5 +71,10 @@ public class NuclearRocketService {
     public NuclearRocketViewDTO getNuclearRocketDetails(Long id) {
         NuclearRocketEntity nuclearRocket = nuclearRocketRepository.findById(id).get();
         return modelMapper.map(nuclearRocket, NuclearRocketViewDTO.class);
+    }
+
+    public void addNuclearRocket(NuclearRocketAddDTO nuclearRocketAddDTO) {
+        NuclearRocketEntity nuclearRocket = modelMapper.map(nuclearRocketAddDTO, NuclearRocketEntity.class);
+        nuclearRocketRepository.save(nuclearRocket);
     }
 }

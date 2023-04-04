@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="register_page" style="background-image: url('/images/add-weapon-bg-img.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="container">
+  <h2 class="text-center text-white">Add Nuclear Bomb</h2>
+  <form   th:action="@{/weapons/add/nuclearBomb}"
+          th:method="POST"
+          th:object="${nuclearBombAddDTO}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="name" class="text-white font-weight-bold">Name*</label>
+        <input  id="name"
+                name="name"
+                th:field="*{name}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Name"/>
+        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="usedBy" class="text-white font-weight-bold">Used By*</label>
+        <input  id="usedBy"
+                name="usedBy"
+                th:field="*{usedBy}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Used By"/>
+        <small th:if="${#fields.hasErrors('usedBy')}" th:errors="*{usedBy}" class="text-danger">Used By error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="imageUrl" class="text-white font-weight-bold">Image URL*</label>
+        <input  id="imageUrl"
+                name="imageUrl"
+                th:field="*{imageUrl}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Image URL"/>
+        <small th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="text-danger">Image URL error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="mass" class="text-white font-weight-bold">Mass</label>
+        <input  id="mass"
+                name="mass"
+                th:field="*{mass}"
+                type="text"
+                class="form-control"
+                placeholder="Mass"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="length" class="text-white font-weight-bold">Length</label>
+        <input  id="length"
+                name="length"
+                th:field="*{length}"
+                type="text"
+                class="form-control"
+                placeholder="Length"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="blastYield" class="text-white font-weight-bold">Blast Yield</label>
+        <input  id="blastYield"
+                name="blastYield"
+                th:field="*{blastYield}"
+                type="text"
+                class="form-control"
+                placeholder="Blast Yield"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="description" class="text-white font-weight-bold">Description</label>
+        <input  id="description"
+                name="description"
+                th:field="*{description}"
+                type="text"
+                class="form-control"
+                placeholder="Description"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-md-4">
+        <div class="button-holder d-flex">
+          <input type="submit" class="btn btn-info btn-lg" value="Add Weapon"/>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div>
+  <footer> </footer>
+</div>
+</body>
+</html>

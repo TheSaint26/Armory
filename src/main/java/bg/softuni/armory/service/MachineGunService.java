@@ -1,10 +1,12 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.entity.firearms.AssaultRifleEntity;
 import bg.softuni.armory.model.entity.firearms.MachineGunEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.FireArmType;
 import bg.softuni.armory.repository.MachineGunRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -139,5 +141,11 @@ public class MachineGunService {
         MachineGunEntity machineGun = machineGunRepository.findById(machineGunId).get();
         user.getBoughtMachineGuns().add(machineGun);
         userRepository.save(user);
+    }
+
+    public void addMachineGun(FirearmAddDTO firearmAddDTO) {
+        MachineGunEntity machineGun = modelMapper.map(firearmAddDTO, MachineGunEntity.class);
+        machineGun.setType(FireArmType.MACHINE_GUN);
+        machineGunRepository.save(machineGun);
     }
 }

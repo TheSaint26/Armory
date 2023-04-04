@@ -1,10 +1,13 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.entity.firearms.AssaultRifleEntity;
 import bg.softuni.armory.model.entity.firearms.GrenadeLauncherEntity;
+import bg.softuni.armory.model.entity.firearms.SniperEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.FireArmType;
 import bg.softuni.armory.repository.GrenadeLauncherRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -106,5 +109,11 @@ public class GrenadeLauncherService {
         GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(grenadeLauncherId).get();
         user.getBoughtGrenadeLaunchers().add(grenadeLauncher);
         userRepository.save(user);
+    }
+
+    public void addGrenadelauncher(FirearmAddDTO firearmAddDTO) {
+        GrenadeLauncherEntity grenadeLauncher = modelMapper.map(firearmAddDTO, GrenadeLauncherEntity.class);
+        grenadeLauncher.setType(FireArmType.GRENADE_LAUNCHER);
+        grenadeLauncherRepository.save(grenadeLauncher);
     }
 }

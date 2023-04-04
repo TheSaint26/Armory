@@ -27,19 +27,19 @@ padding-left: 20px;
             <h4 th:text="${aircraft.getName()}">Infantry Fighting Vehicle name</h4>
             <p th:text="|Country of origin: ${aircraft.getCountryOfOrigin()}|"></p>
             <p th:text="|Type: ${aircraft.getType()}|"></p>
-            <p th:text="|Crew: ${aircraft.getCrew()}|"></p>
-            <p th:text="|Length: ${aircraft.getLength()} m.|"></p>
-            <p th:text="|Wing Span: ${aircraft.getWingSpan()} m.|"></p>
-            <p th:text="|Weight Empty: ${aircraft.getWeightEmpty()} t.|"></p>
-            <p th:text="|Weight Full: ${aircraft.getWeightFull()} t.|"></p>
-            <p th:text="|Engine: ${aircraft.getEngine()}|"></p>
-            <p th:text="|Max Speed: ${aircraft.getMaxSpeed()} kmph|"></p>
-            <p th:text="|Max Range: ${aircraft.getMaxRange()} km.|"></p>
-            <p th:text="|Combat Radius: ${aircraft.getCombatRadius()} km.|"></p>
-            <p th:text="|Cannon: ${aircraft.getCannon()}|"></p>
-            <p th:text="|Missiles: ${aircraft.getMissiles()}|"></p>
-            <p th:text="|Bombs: ${aircraft.getBombs()}|"></p>
-            <p th:text="|Description: ${aircraft.getDescription()}|"></p>
+            <p th:text="|Crew: ${aircraft.getCrew() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Length: ${aircraft.getLength() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Wing Span: ${aircraft.getWingSpan() ?: 'UNKNOWN'} m.|"></p>
+            <p th:text="|Weight Empty: ${aircraft.getWeightEmpty() ?: 'UNKNOWN'} t.|"></p>
+            <p th:text="|Weight Full: ${aircraft.getWeightFull() ?: 'UNKNOWN'} t.|"></p>
+            <p th:text="|Engine: ${aircraft.getEngine() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Max Speed: ${aircraft.getMaxSpeed() ?: 'UNKNOWN'} kmph|"></p>
+            <p th:text="|Max Range: ${aircraft.getMaxRange() ?: 'UNKNOWN'} km.|"></p>
+            <p th:text="|Combat Radius: ${aircraft.getCombatRadius() ?: 'UNKNOWN'} km.|"></p>
+            <p th:text="|Cannon: ${aircraft.getCannon() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Missiles: ${aircraft.getMissiles() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Bombs: ${aircraft.getBombs() ?: 'UNKNOWN'}|"></p>
+            <p th:text="|Description: ${aircraft.getDescription() ?: 'N/A'}|"></p>
             <form class="card-body" th:action="@{/weapons/aircraft/buy/{id} (id=${aircraft.getId()})}">
               <button class="btn btn-warning" th:text="|Buy for ${aircraft.getPrice()} ${'&#36;'+'&nbsp;'}|"></button>
             </form>

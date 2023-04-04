@@ -2,6 +2,7 @@ package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.artillery.RocketArtilleryEntity;
 import bg.softuni.armory.model.entity.artillery.TrunkArtilleryEntity;
+import bg.softuni.armory.model.entity.dto.TrunkArtilleryAddDTO;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.TrunkArtilleryViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
@@ -176,5 +177,10 @@ public class TrunkArtilleryService {
         TrunkArtilleryEntity trunkArtillery = trunkArtilleryRepository.findById(trunkArtilleryId).get();
         user.getBoughtTrunkArtillery().add(trunkArtillery);
         userRepository.save(user);
+    }
+
+    public void addTrunkArtillery(TrunkArtilleryAddDTO trunkArtilleryAddDTO) {
+        TrunkArtilleryEntity trunkArtillery = modelMapper.map(trunkArtilleryAddDTO, TrunkArtilleryEntity.class);
+        trunkArtilleryRepository.save(trunkArtillery);
     }
 }

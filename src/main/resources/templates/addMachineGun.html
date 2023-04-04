@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="register_page" style="background-image: url('/images/add-weapon-bg-img.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="container">
+  <h2 class="text-center text-white">Add Machine Gun</h2>
+  <form   th:action="@{/weapons/add/machineGun}"
+          th:method="POST"
+          th:object="${firearmDTO}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+    <div th:include="~{/fragments/addFirearmFields}">
+    </div>
+    <div class="row">
+      <div class="col col-md-4">
+        <div class="button-holder d-flex">
+          <input type="submit" class="btn btn-info btn-lg" value="Add Weapon"/>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div>
+  <footer> </footer>
+</div>
+</body>
+</html>

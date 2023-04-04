@@ -36,7 +36,7 @@ public class RocketArtilleryEntity extends BaseEntity {
     public String engine;
     @Column(name = "price")
     private BigDecimal price;
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
     private String imageURL;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;

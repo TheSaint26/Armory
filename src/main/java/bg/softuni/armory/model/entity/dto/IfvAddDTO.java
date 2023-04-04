@@ -1,67 +1,51 @@
-package bg.softuni.armory.model.entity.IFV;
+package bg.softuni.armory.model.entity.dto;
 
-import bg.softuni.armory.model.entity.BaseEntity;
-
-import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "infantry_fighting_vehicles")
-public class InfantryFightingVehicleEntity extends BaseEntity {
-    @Column(name = "name", nullable = false, unique = true)
+public class IfvAddDTO {
+    @NotBlank(message = "Please, fill Infantry Fighting Vehicle name!")
+    @Size(min = 2, message = "Infantry Fighting Vehicle name must be at least 2 characters!")
     private String name;
-    @Column(name = "country_of_origin", nullable = false)
+    @NotBlank(message = "Please, fill Country of Origin!")
+    @Size(min = 2, message = "Country of Origin name must be at least 2 characters!")
     private String countryOfOrigin;
-    @Column(name = "entered_service")
+    @Positive(message = "Please enter positive value!")
     private Integer enteredService;
-    @Column(name = "crew")
+    @Positive(message = "Please enter positive value!")
     private Integer crew;
-    @Column(name = "personnel")
+    @Positive(message = "Please enter positive value!")
     private Integer personnel;
-    @Column(name = "main_gun")
     private String mainGun;
-    @Column(name = "weight")
     private Double weight;
-    @Column(name = "length")
     private Double length;
-    @Column(name = "width")
     private Double width;
-    @Column(name = "height")
     private Double height;
-    @Column(name = "main_gun_caliber")
     private Integer mainGunCaliber;
-    @Column(name = "ATGW")
     private String ATGW;
-
-    @Column(name = "machine_gun")
     private String machineGun;
-    @Column(name = "main_gun_ammo_load")
+    private Integer machineGinAmmoLoad;
     private Integer mainGunAmmoLoad;
-    @Column(name = "atgw_ammo_load")
     private Integer atgwAmmoLoad;
-    @Column(name = "machine_gun_ammo_load")
-    private Integer machineGunAmmoLoad;
-    @Column(name = "engine")
     private String engine;
-    @Column(name = "max_speed")
     private Integer maxSpeed;
-    @Column(name = "max_range")
     private Integer maxRange;
-    @Column(name = "price", nullable = false)
+    @NotNull(message = "Please, enter price!")
+    @Min(value = 1800, message = "Please, enter a reasonable year!")
     private BigDecimal price;
-    @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Please, fill image URL!")
+    @Size(min = 5, message = "Image URL must be at least 5 characters!")
     private String imageUrl;
-    @Column(name = "descriprion", columnDefinition = "TEXT")
     private String description;
 
-    public InfantryFightingVehicleEntity() {
+    public IfvAddDTO() {
     }
 
     public String getName() {
         return name;
     }
 
-    public InfantryFightingVehicleEntity setName(String name) {
+    public IfvAddDTO setName(String name) {
         this.name = name;
         return this;
     }
@@ -70,7 +54,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return countryOfOrigin;
     }
 
-    public InfantryFightingVehicleEntity setCountryOfOrigin(String countryOfOrigin) {
+    public IfvAddDTO setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
         return this;
     }
@@ -79,7 +63,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return enteredService;
     }
 
-    public InfantryFightingVehicleEntity setEnteredService(Integer enteredService) {
+    public IfvAddDTO setEnteredService(Integer enteredService) {
         this.enteredService = enteredService;
         return this;
     }
@@ -88,7 +72,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return crew;
     }
 
-    public InfantryFightingVehicleEntity setCrew(Integer crew) {
+    public IfvAddDTO setCrew(Integer crew) {
         this.crew = crew;
         return this;
     }
@@ -97,7 +81,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return personnel;
     }
 
-    public InfantryFightingVehicleEntity setPersonnel(Integer personnel) {
+    public IfvAddDTO setPersonnel(Integer personnel) {
         this.personnel = personnel;
         return this;
     }
@@ -106,7 +90,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return mainGun;
     }
 
-    public InfantryFightingVehicleEntity setMainGun(String mainGun) {
+    public IfvAddDTO setMainGun(String mainGun) {
         this.mainGun = mainGun;
         return this;
     }
@@ -115,7 +99,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return weight;
     }
 
-    public InfantryFightingVehicleEntity setWeight(Double weight) {
+    public IfvAddDTO setWeight(Double weight) {
         this.weight = weight;
         return this;
     }
@@ -124,7 +108,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return length;
     }
 
-    public InfantryFightingVehicleEntity setLength(Double length) {
+    public IfvAddDTO setLength(Double length) {
         this.length = length;
         return this;
     }
@@ -133,7 +117,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return width;
     }
 
-    public InfantryFightingVehicleEntity setWidth(Double width) {
+    public IfvAddDTO setWidth(Double width) {
         this.width = width;
         return this;
     }
@@ -142,7 +126,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return height;
     }
 
-    public InfantryFightingVehicleEntity setHeight(Double height) {
+    public IfvAddDTO setHeight(Double height) {
         this.height = height;
         return this;
     }
@@ -151,17 +135,8 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return mainGunCaliber;
     }
 
-    public InfantryFightingVehicleEntity setMainGunCaliber(Integer mainGunCaliber) {
+    public IfvAddDTO setMainGunCaliber(Integer mainGunCaliber) {
         this.mainGunCaliber = mainGunCaliber;
-        return this;
-    }
-
-    public String getMachineGun() {
-        return machineGun;
-    }
-
-    public InfantryFightingVehicleEntity setMachineGun(String machineGun) {
-        this.machineGun = machineGun;
         return this;
     }
 
@@ -169,8 +144,26 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return ATGW;
     }
 
-    public InfantryFightingVehicleEntity setATGW(String ATGW) {
+    public IfvAddDTO setATGW(String ATGW) {
         this.ATGW = ATGW;
+        return this;
+    }
+
+    public String getMachineGun() {
+        return machineGun;
+    }
+
+    public IfvAddDTO setMachineGun(String machineGun) {
+        this.machineGun = machineGun;
+        return this;
+    }
+
+    public Integer getMachineGinAmmoLoad() {
+        return machineGinAmmoLoad;
+    }
+
+    public IfvAddDTO setMachineGinAmmoLoad(Integer machineGinAmmoLoad) {
+        this.machineGinAmmoLoad = machineGinAmmoLoad;
         return this;
     }
 
@@ -178,7 +171,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return mainGunAmmoLoad;
     }
 
-    public InfantryFightingVehicleEntity setMainGunAmmoLoad(Integer mainGunAmmoLoad) {
+    public IfvAddDTO setMainGunAmmoLoad(Integer mainGunAmmoLoad) {
         this.mainGunAmmoLoad = mainGunAmmoLoad;
         return this;
     }
@@ -187,17 +180,8 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return atgwAmmoLoad;
     }
 
-    public InfantryFightingVehicleEntity setAtgwAmmoLoad(Integer atgwAmmoLoad) {
+    public IfvAddDTO setAtgwAmmoLoad(Integer atgwAmmoLoad) {
         this.atgwAmmoLoad = atgwAmmoLoad;
-        return this;
-    }
-
-    public Integer getMachineGunAmmoLoad() {
-        return machineGunAmmoLoad;
-    }
-
-    public InfantryFightingVehicleEntity setMachineGunAmmoLoad(Integer machineGunAmmoLoad) {
-        this.machineGunAmmoLoad = machineGunAmmoLoad;
         return this;
     }
 
@@ -205,7 +189,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return engine;
     }
 
-    public InfantryFightingVehicleEntity setEngine(String engine) {
+    public IfvAddDTO setEngine(String engine) {
         this.engine = engine;
         return this;
     }
@@ -214,7 +198,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return maxSpeed;
     }
 
-    public InfantryFightingVehicleEntity setMaxSpeed(Integer maxSpeed) {
+    public IfvAddDTO setMaxSpeed(Integer maxSpeed) {
         this.maxSpeed = maxSpeed;
         return this;
     }
@@ -223,7 +207,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return maxRange;
     }
 
-    public InfantryFightingVehicleEntity setMaxRange(Integer maxRange) {
+    public IfvAddDTO setMaxRange(Integer maxRange) {
         this.maxRange = maxRange;
         return this;
     }
@@ -232,7 +216,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return price;
     }
 
-    public InfantryFightingVehicleEntity setPrice(BigDecimal price) {
+    public IfvAddDTO setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -241,7 +225,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return imageUrl;
     }
 
-    public InfantryFightingVehicleEntity setImageUrl(String imageUrl) {
+    public IfvAddDTO setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -250,7 +234,7 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
         return description;
     }
 
-    public InfantryFightingVehicleEntity setDescription(String description) {
+    public IfvAddDTO setDescription(String description) {
         this.description = description;
         return this;
     }

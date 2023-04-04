@@ -1,10 +1,13 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.IFV.InfantryFightingVehicleEntity;
+import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
+import bg.softuni.armory.model.entity.dto.IfvAddDTO;
 import bg.softuni.armory.model.entity.firearms.SniperEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.InfantryFightingVehicleViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.FireArmType;
 import bg.softuni.armory.repository.InfantryFightingVehicleRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -155,5 +158,10 @@ public class InfantryFightingVehicleService {
         InfantryFightingVehicleEntity vehicle = infantryFightingVehicleRepository.findById(ifvId).get();
         user.getBoughtIfvs().add(vehicle);
         userRepository.save(user);
+    }
+
+    public void addIfv(IfvAddDTO ifvAddDTO) {
+       InfantryFightingVehicleEntity vehicle = modelMapper.map(ifvAddDTO, InfantryFightingVehicleEntity.class);
+       infantryFightingVehicleRepository.save(vehicle);
     }
 }

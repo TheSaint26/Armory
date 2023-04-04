@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="register_page" style="background-image: url('/images/add-weapon-bg-img.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="container">
+  <h2 class="text-center text-white">Add Rocket Artillery</h2>
+  <form   th:action="@{/weapons/add/rocketArtillery}"
+          th:method="POST"
+          th:object="${rocketArtilleryAddDTO}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <p>
+        <h5>Fields marked with '*' are mandatory!</h5>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="name" class="text-white font-weight-bold">Name*</label>
+        <input  id="name"
+                name="name"
+                th:field="*{name}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Name"/>
+        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="countryOfOrigin" class="text-white font-weight-bold">Country of Origin*</label>
+        <input  id="countryOfOrigin"
+                name="countryOfOrigin"
+                th:field="*{countryOfOrigin}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Country of Origin"/>
+        <small th:if="${#fields.hasErrors('countryOfOrigin')}" th:errors="*{countryOfOrigin}" class="text-danger">Country of origin error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="enteredService" class="text-white font-weight-bold">Entered Service*</label>
+        <input  id="enteredService"
+                name="enteredService"
+                th:field="*{enteredService}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Entered Service"/>
+        <small th:if="${#fields.hasErrors('enteredService')}" th:errors="*{enteredService}" class="text-danger">Entered service error message</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="text-white label-holder d-flex justify-content-center">
+        <label for="condition" class="h4 mb-2">Rocket Artillery Type*</label>
+      </div>
+      <select class="browser-default custom-select" id="condition" name="condition"
+              th:field="*{type}" th:errorclass="'is-invalid bg-danger'">
+        <option value="">Select artillery type</option>
+        <option value="ROCKET_FIELD_ARTILLERY">Rocket Field Artillery</option>
+        <option value="HEAVY_FLAMETHROWER_SYSTEM">Heavy Flamethrower System</option>
+      </select>
+
+      <small th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger">Type error message</small>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="caliber" class="text-white font-weight-bold">Caliber*</label>
+        <input  id="caliber"
+                name="caliber"
+                th:field="*{caliber}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Caliber"/>
+        <small th:if="${#fields.hasErrors('caliber')}" th:errors="*{caliber}" class="text-danger">Caliber error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="numberOfTubes" class="text-white font-weight-bold">Number of Tubes*</label>
+        <input  id="numberOfTubes"
+                name="numberOfTubes"
+                th:field="*{numberOfTubes}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Number of Tubes"/>
+        <small th:if="${#fields.hasErrors('numberOfTubes')}" th:errors="*{caliber}" class="text-danger">Caliber error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="imageURL" class="text-white font-weight-bold">Image URL*</label>
+        <input  id="imageURL"
+                name="imageURL"
+                th:field="*{imageURL}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Image URL"/>
+        <small th:if="${#fields.hasErrors('imageURL')}" th:errors="*{imageURL}" class="text-danger">Image URL error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="price" class="text-white font-weight-bold">Price*</label>
+        <input  id="price"
+                name="price"
+                th:field="*{price}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Price"/>
+        <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger">Price error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="rocketWeight" class="text-white font-weight-bold">Rocket Weight</label>
+        <input  id="rocketWeight"
+                name="rocketWeight"
+                th:field="*{rocketWeight}"
+                type="text"
+                class="form-control"
+                placeholder="Rocket Weight"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="warheadWeight" class="text-white font-weight-bold">Warhead Weight</label>
+        <input  id="warheadWeight"
+                name="warheadWeight"
+                th:field="*{warheadWeight}"
+                type="text"
+                class="form-control"
+                placeholder="Warhead Weight"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="maxFiringRange" class="text-white font-weight-bold">Max Firing Range</label>
+        <input  id="maxFiringRange"
+                name="maxFiringRange"
+                th:field="*{maxFiringRange}"
+                type="text"
+                class="form-control"
+                placeholder="Max Firing Range"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="fullSalvoDuration" class="text-white font-weight-bold">Full Salvo Duration</label>
+        <input  id="fullSalvoDuration"
+                name="fullSalvoDuration"
+                th:field="*{fullSalvoDuration}"
+                type="text"
+                class="form-control"
+                placeholder="Full Salvo Duration"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="reloadingTime" class="text-white font-weight-bold">Reloading Time</label>
+        <input  id="reloadingTime"
+                name="reloadingTime"
+                th:field="*{reloadingTime}"
+                type="text"
+                class="form-control"
+                placeholder="Reloading Time"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="engine" class="text-white font-weight-bold">Engine</label>
+        <input  id="engine"
+                name="engine"
+                th:field="*{engine}"
+                type="text"
+                class="form-control"
+                placeholder="Engine"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="description" class="text-white font-weight-bold">Description</label>
+        <input  id="description"
+                name="description"
+                th:field="*{description}"
+                type="text"
+                class="form-control"
+                placeholder="Description"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-md-4">
+        <div class="button-holder d-flex">
+          <input type="submit" class="btn btn-info btn-lg" value="Add Weapon"/>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div>
+  <footer> </footer>
+</div>
+</body>
+</html>

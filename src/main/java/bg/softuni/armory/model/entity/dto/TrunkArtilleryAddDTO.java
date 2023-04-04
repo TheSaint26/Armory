@@ -1,72 +1,49 @@
-package bg.softuni.armory.model.entity.artillery;
+package bg.softuni.armory.model.entity.dto;
 
-
-import bg.softuni.armory.model.entity.BaseEntity;
-import bg.softuni.armory.model.enums.TrunkArtilleryType;
-
-import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
-@Entity
-@Table(name = "trunk_artillery")
-public class TrunkArtilleryEntity extends BaseEntity {
-    @Column(name = "name", nullable = false, unique = true)
+public class TrunkArtilleryAddDTO {
+    @NotBlank(message = "Please, enter name!")
+    @Size(min = 2, message = "Name must be at least 2 characters!")
     private String name;
-    @Enumerated(EnumType.STRING)
-    private TrunkArtilleryType type;
-    @Column(name = "country_of_origin", nullable = false)
+    @NotBlank(message = "Please, enter country of origin!")
+    @Size(min = 2, message = "Country of origin must be at least 2 characters!")
     private String countryOfOrigin;
-    @Column(name = "entered_service", nullable = false)
+    @NotNull(message = "Please, enter year!")
+    @Min(value = 1800, message = "Please, enter reasonable year!")
     private Integer enteredService;
-    @Column(name = "crew")
+    @NotBlank(message = "Please, enter artillery type!")
+    private String type;
     private Integer crew;
-    @Column(name = "main_gun_caliber", nullable = false)
     private Integer mainGunCaliber;
-    @Column(name = "projectile_weight")
     private Double projectileWeight;
-    @Column(name = "max_firing_range", nullable = true)
     private Integer maxFiringRange;
-    @Column(name = "max_rate_of_fire")
     private Integer maxRateOfFire;
-    @Column(name = "has_machine_gun")
     private boolean hasMachineGun;
-    @Column(name = "machine_gun_caliber")
     private Double machineGunCaliber;
-    @Column(name = "weight")
     private Double weight;
-    @Column(name = "full_length")
     private Double fullLength;
-    @Column(name = "hull_length")
     private Double hullLength;
-    @Column(name = "engine")
     private String engine;
-    @Column(name = "price")
     private BigDecimal price;
-    @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Please, enter image URL!")
+    @Size(min = 5, message = "Image URL must be at least 5 characters!")
     private String imageUrl;
-    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-
-    public TrunkArtilleryEntity() {
+    public TrunkArtilleryAddDTO() {
     }
 
     public String getName() {
         return name;
     }
 
-    public TrunkArtilleryEntity setName(String name) {
+    public TrunkArtilleryAddDTO setName(String name) {
         this.name = name;
-        return this;
-    }
-
-    public TrunkArtilleryType getType() {
-        return type;
-    }
-
-    public TrunkArtilleryEntity setType(TrunkArtilleryType type) {
-        this.type = type;
         return this;
     }
 
@@ -74,7 +51,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return countryOfOrigin;
     }
 
-    public TrunkArtilleryEntity setCountryOfOrigin(String countryOfOrigin) {
+    public TrunkArtilleryAddDTO setCountryOfOrigin(String countryOfOrigin) {
         this.countryOfOrigin = countryOfOrigin;
         return this;
     }
@@ -83,8 +60,17 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return enteredService;
     }
 
-    public TrunkArtilleryEntity setEnteredService(Integer enteredService) {
+    public TrunkArtilleryAddDTO setEnteredService(Integer enteredService) {
         this.enteredService = enteredService;
+        return this;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public TrunkArtilleryAddDTO setType(String type) {
+        this.type = type;
         return this;
     }
 
@@ -92,7 +78,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return crew;
     }
 
-    public TrunkArtilleryEntity setCrew(Integer crew) {
+    public TrunkArtilleryAddDTO setCrew(Integer crew) {
         this.crew = crew;
         return this;
     }
@@ -101,7 +87,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return mainGunCaliber;
     }
 
-    public TrunkArtilleryEntity setMainGunCaliber(Integer mainGunCaliber) {
+    public TrunkArtilleryAddDTO setMainGunCaliber(Integer mainGunCaliber) {
         this.mainGunCaliber = mainGunCaliber;
         return this;
     }
@@ -110,7 +96,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return projectileWeight;
     }
 
-    public TrunkArtilleryEntity setProjectileWeight(Double projectileWeight) {
+    public TrunkArtilleryAddDTO setProjectileWeight(Double projectileWeight) {
         this.projectileWeight = projectileWeight;
         return this;
     }
@@ -119,7 +105,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return maxFiringRange;
     }
 
-    public TrunkArtilleryEntity setMaxFiringRange(Integer maxFiringRange) {
+    public TrunkArtilleryAddDTO setMaxFiringRange(Integer maxFiringRange) {
         this.maxFiringRange = maxFiringRange;
         return this;
     }
@@ -128,7 +114,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return maxRateOfFire;
     }
 
-    public TrunkArtilleryEntity setMaxRateOfFire(Integer maxRateOfFire) {
+    public TrunkArtilleryAddDTO setMaxRateOfFire(Integer maxRateOfFire) {
         this.maxRateOfFire = maxRateOfFire;
         return this;
     }
@@ -137,7 +123,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return hasMachineGun;
     }
 
-    public TrunkArtilleryEntity setHasMachineGun(boolean hasMachineGun) {
+    public TrunkArtilleryAddDTO setHasMachineGun(boolean hasMachineGun) {
         this.hasMachineGun = hasMachineGun;
         return this;
     }
@@ -146,7 +132,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return machineGunCaliber;
     }
 
-    public TrunkArtilleryEntity setMachineGunCaliber(Double machineGunCaliber) {
+    public TrunkArtilleryAddDTO setMachineGunCaliber(Double machineGunCaliber) {
         this.machineGunCaliber = machineGunCaliber;
         return this;
     }
@@ -155,7 +141,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return weight;
     }
 
-    public TrunkArtilleryEntity setWeight(Double weight) {
+    public TrunkArtilleryAddDTO setWeight(Double weight) {
         this.weight = weight;
         return this;
     }
@@ -164,7 +150,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return fullLength;
     }
 
-    public TrunkArtilleryEntity setFullLength(Double fullLength) {
+    public TrunkArtilleryAddDTO setFullLength(Double fullLength) {
         this.fullLength = fullLength;
         return this;
     }
@@ -173,7 +159,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return hullLength;
     }
 
-    public TrunkArtilleryEntity setHullLength(Double hullLength) {
+    public TrunkArtilleryAddDTO setHullLength(Double hullLength) {
         this.hullLength = hullLength;
         return this;
     }
@@ -182,7 +168,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return engine;
     }
 
-    public TrunkArtilleryEntity setEngine(String engine) {
+    public TrunkArtilleryAddDTO setEngine(String engine) {
         this.engine = engine;
         return this;
     }
@@ -191,7 +177,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return price;
     }
 
-    public TrunkArtilleryEntity setPrice(BigDecimal price) {
+    public TrunkArtilleryAddDTO setPrice(BigDecimal price) {
         this.price = price;
         return this;
     }
@@ -200,7 +186,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return imageUrl;
     }
 
-    public TrunkArtilleryEntity setImageUrl(String imageUrl) {
+    public TrunkArtilleryAddDTO setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
         return this;
     }
@@ -209,7 +195,7 @@ public class TrunkArtilleryEntity extends BaseEntity {
         return description;
     }
 
-    public TrunkArtilleryEntity setDescription(String description) {
+    public TrunkArtilleryAddDTO setDescription(String description) {
         this.description = description;
         return this;
     }

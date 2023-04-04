@@ -1,10 +1,12 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.entity.firearms.AssaultRifleEntity;
 import bg.softuni.armory.model.entity.firearms.PistolEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.FireArmType;
 import bg.softuni.armory.repository.AssaultRifleRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -143,5 +145,11 @@ public class AssaultRifleService {
         AssaultRifleEntity assaultRifle = assaultRifleRepository.findById(assaultRifleId).get();
         user.getBoughtAssaultRifles().add(assaultRifle);
         userRepository.save(user);
+    }
+
+    public void addAssaultRifle(FirearmAddDTO firearmAddDTO) {
+        AssaultRifleEntity assaultRifle = modelMapper.map(firearmAddDTO, AssaultRifleEntity.class);
+        assaultRifle.setType(FireArmType.ASSAULT_RIFLE);
+        assaultRifleRepository.save(assaultRifle);
     }
 }

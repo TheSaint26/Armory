@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Armory</title>
+  <link rel="stylesheet" href="/css/reset-css.css"/>
+  <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <script src="/js/jquery-3.5.1.slim.min.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+</head>
+<body class="register_page" style="background-image: url('/images/add-weapon-bg-img.jpg')">
+<div class="navbar" th:replace="~{fragments/navbar}">Navbar</div>
+<div class="container">
+  <h2 class="text-center text-white">Add Aircraft</h2>
+  <form   th:action="@{/weapons/add/aircraft}"
+          th:method="POST"
+          th:object="${aircraftAddDTO}"
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <p>
+        <h5>Fields marked with '*' are mandatory!</h5>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="name" class="text-white font-weight-bold">Name*</label>
+        <input  id="name"
+                name="name"
+                th:field="*{name}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Name"/>
+        <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger">Name error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="countryOfOrigin" class="text-white font-weight-bold">Country of Origin*</label>
+        <input  id="countryOfOrigin"
+                name="countryOfOrigin"
+                th:field="*{countryOfOrigin}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Country of Origin"/>
+        <small th:if="${#fields.hasErrors('countryOfOrigin')}" th:errors="*{countryOfOrigin}" class="text-danger">Country of origin error message</small>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="text-white label-holder d-flex justify-content-center">
+        <label for="condition" class="h4 mb-2">Aircraft Type*</label>
+      </div>
+      <select class="browser-default custom-select" id="condition" name="condition"
+              th:field="*{type}" th:errorclass="'is-invalid bg-danger'">
+        <option value="">Select aircraft type</option>
+        <option value="FIGHTER">Fighter</option>
+        <option value="BOMBER">Bomber</option>
+        <option value="GROUND_ATTACK">Ground Attack</option>
+        <option value="MULTI_ROLE_FIGHTER">Multi-Role Fighter</option>
+      </select>
+
+      <small th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="text-danger">Type error message</small>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="imageUrl" class="text-white font-weight-bold">Image URL*</label>
+        <input  id="imageUrl"
+                name="imageUrl"
+                th:field="*{imageUrl}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Image URL"/>
+        <small th:if="${#fields.hasErrors('imageUrl')}" th:errors="*{imageUrl}" class="text-danger">Image URL error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="price" class="text-white font-weight-bold">Price*</label>
+        <input  id="price"
+                name="price"
+                th:field="*{price}"
+                th:errorclass="'is-invalid bg-danger'"
+                type="text"
+                class="form-control"
+                placeholder="Price"/>
+        <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="text-danger">Price error message</small>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="crew" class="text-white font-weight-bold">Crew</label>
+        <input  id="crew"
+                name="crew"
+                th:field="*{crew}"
+                type="text"
+                class="form-control"
+                placeholder="Crew"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="wingSpan" class="text-white font-weight-bold">Wing Span</label>
+        <input  id="wingSpan"
+                name="wingSpan"
+                th:field="*{wingSpan}"
+                type="text"
+                class="form-control"
+                placeholder="Wing Span"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="weightEmpty" class="text-white font-weight-bold">Weight Empty</label>
+        <input  id="weightEmpty"
+                name="weightEmpty"
+                th:field="*{weightEmpty}"
+                type="text"
+                class="form-control"
+                placeholder="Weight Empty"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="weightFull" class="text-white font-weight-bold">Weight Full</label>
+        <input  id="weightFull"
+                name="weightFull"
+                th:field="*{weightFull}"
+                type="text"
+                class="form-control"
+                placeholder="Weight Full"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="engine" class="text-white font-weight-bold">Engine</label>
+        <input  id="engine"
+                name="engine"
+                th:field="*{engine}"
+                type="text"
+                class="form-control"
+                placeholder="Engine"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="maxSpeed" class="text-white font-weight-bold">Max Speed</label>
+        <input  id="maxSpeed"
+                name="maxSpeed"
+                th:field="*{maxSpeed}"
+                type="text"
+                class="form-control"
+                placeholder="Max Speed"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="maxRange" class="text-white font-weight-bold">Max Range</label>
+        <input  id="maxRange"
+                name="maxRange"
+                th:field="*{maxRange}"
+                type="text"
+                class="form-control"
+                placeholder="Max Range"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="combatRadius" class="text-white font-weight-bold">Combat Radius</label>
+        <input  id="combatRadius"
+                name="combatRadius"
+                th:field="*{combatRadius}"
+                type="text"
+                class="form-control"
+                placeholder="Combat Radius"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="cannon" class="text-white font-weight-bold">Cannon</label>
+        <input  id="cannon"
+                name="cannon"
+                th:field="*{cannon}"
+                type="text"
+                class="form-control"
+                placeholder="Cannon"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="missiles" class="text-white font-weight-bold">Missiles</label>
+        <input  id="missiles"
+                name="missiles"
+                th:field="*{missiles}"
+                type="text"
+                class="form-control"
+                placeholder="Missiles"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="bombs" class="text-white font-weight-bold">Bombs</label>
+        <input  id="bombs"
+                name="bombs"
+                th:field="*{bombs}"
+                type="text"
+                class="form-control"
+                placeholder="Bombs"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-6 mb-3">
+        <label for="description" class="text-white font-weight-bold">Description</label>
+        <input  id="description"
+                name="description"
+                th:field="*{description}"
+                type="text"
+                class="form-control"
+                placeholder="Description"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-md-4">
+        <div class="button-holder d-flex">
+          <input type="submit" class="btn btn-info btn-lg" value="Add Weapon"/>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div>
+  <footer> </footer>
+</div>
+</body>
+</html>
