@@ -2,12 +2,15 @@ package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.artillery.RocketArtilleryEntity;
 import bg.softuni.armory.model.entity.dto.RocketArtilleryAddDTO;
-import bg.softuni.armory.model.entity.firearms.SniperEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.RocketArtilleryViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.AccountRole;
 import bg.softuni.armory.model.enums.RocketArtilleryType;
+import bg.softuni.armory.model.enums.UserType;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.repository.RocketArtilleryRepository;
+import bg.softuni.armory.repository.RoleRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,11 +26,13 @@ public class RocketArtilleryService {
     private final RocketArtilleryRepository rocketArtilleryRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public RocketArtilleryService(RocketArtilleryRepository rocketArtilleryRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    public RocketArtilleryService(RocketArtilleryRepository rocketArtilleryRepository, ModelMapper modelMapper, UserRepository userRepository, RoleRepository roleRepository) {
         this.rocketArtilleryRepository = rocketArtilleryRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public void seedRocketArtillery() {
@@ -157,9 +162,12 @@ public class RocketArtilleryService {
         return null;
     }
 
-    public void buyRocketArtillery(Long rocketArtilleryId, UserDetails userDetails) {
+    public void buyRocketArtillery(Long rocketArtilleryId, UserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
-        RocketArtilleryEntity rocketArtillery = rocketArtilleryRepository.findById(rocketArtilleryId).get();
+        if ((user.getUserType().equals(UserType.PERSON) || user.getUserType().equals(UserType.PARAMILITARY_ORGANIZATION)) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
+            throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
+        }
+        RocketArtilleryEntity rocketArtillery = rocketArtilleryRepository.findById(rocketArtilleryId).orElseThrow();
         user.getBoughtRocketArtillery().add(rocketArtillery);
         userRepository.save(user);
     }

@@ -1,14 +1,15 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.IFV.InfantryFightingVehicleEntity;
-import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.entity.dto.IfvAddDTO;
-import bg.softuni.armory.model.entity.firearms.SniperEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.InfantryFightingVehicleViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
-import bg.softuni.armory.model.enums.FireArmType;
+import bg.softuni.armory.model.enums.AccountRole;
+import bg.softuni.armory.model.enums.UserType;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.repository.InfantryFightingVehicleRepository;
+import bg.softuni.armory.repository.RoleRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,11 +25,13 @@ public class InfantryFightingVehicleService {
     private final InfantryFightingVehicleRepository infantryFightingVehicleRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public InfantryFightingVehicleService(InfantryFightingVehicleRepository infantryFightingVehicleRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    public InfantryFightingVehicleService(InfantryFightingVehicleRepository infantryFightingVehicleRepository, ModelMapper modelMapper, UserRepository userRepository, RoleRepository roleRepository) {
         this.infantryFightingVehicleRepository = infantryFightingVehicleRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public void seedIFV() {
@@ -153,9 +156,12 @@ public class InfantryFightingVehicleService {
         return modelMapper.map(vehicle, InfantryFightingVehicleViewDTO.class);
     }
 
-    public void buyIFV(Long ifvId, UserDetails userDetails) {
+    public void buyIFV(Long ifvId, UserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
-        InfantryFightingVehicleEntity vehicle = infantryFightingVehicleRepository.findById(ifvId).get();
+        if (user.getUserType().equals(UserType.PERSON) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
+            throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person!");
+        }
+        InfantryFightingVehicleEntity vehicle = infantryFightingVehicleRepository.findById(ifvId).orElseThrow();
         user.getBoughtIfvs().add(vehicle);
         userRepository.save(user);
     }

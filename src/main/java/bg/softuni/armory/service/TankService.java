@@ -1,11 +1,14 @@
 package bg.softuni.armory.service;
 
-import bg.softuni.armory.model.entity.IFV.InfantryFightingVehicleEntity;
 import bg.softuni.armory.model.entity.dto.TankAddDTO;
 import bg.softuni.armory.model.entity.tank.TankEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.TankViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.AccountRole;
+import bg.softuni.armory.model.enums.UserType;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
+import bg.softuni.armory.repository.RoleRepository;
 import bg.softuni.armory.repository.TankRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -22,11 +25,13 @@ public class TankService {
     private final TankRepository tankRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public TankService(TankRepository tankRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    public TankService(TankRepository tankRepository, ModelMapper modelMapper, UserRepository userRepository, RoleRepository roleRepository) {
         this.tankRepository = tankRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public void seedTanks() {
@@ -171,8 +176,11 @@ public class TankService {
         return modelMapper.map(tank, TankViewDTO.class);
     }
 
-    public void buyTank(Long tankId, UserDetails userDetails) {
+    public void buyTank(Long tankId, UserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        if ((user.getUserType().equals(UserType.PERSON) || user.getUserType().equals(UserType.PARAMILITARY_ORGANIZATION)) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
+            throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
+        }
         TankEntity tank = tankRepository.findById(tankId).get();
         user.getBoughtTanks().add(tank);
         userRepository.save(user);

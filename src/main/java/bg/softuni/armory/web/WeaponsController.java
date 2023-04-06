@@ -1,15 +1,16 @@
 package bg.softuni.armory.web;
 
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.AircraftService;
 import bg.softuni.armory.service.InfantryFightingVehicleService;
 import bg.softuni.armory.service.TankService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/weapons")
@@ -49,7 +50,7 @@ public class WeaponsController {
 
     @GetMapping("/ifv/buy/{id}")
     public String buyIfv(@PathVariable("id") Long id,
-                         @AuthenticationPrincipal UserDetails userDetails) {
+                         @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         infantryFightingVehicleService.buyIFV(id, userDetails);
         return "boughtItem";
     }
@@ -66,7 +67,7 @@ public class WeaponsController {
     }
     @GetMapping("/tanks/buy/{id}")
     public String buyTank(@PathVariable("id") Long id,
-                          @AuthenticationPrincipal UserDetails userDetails) {
+                          @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         tankService.buyTank(id, userDetails);
         return "boughtItem";
     }
@@ -90,7 +91,7 @@ public class WeaponsController {
 
     @GetMapping("/aircraft/buy/{id}")
     public String buyAircraft(@PathVariable("id") Long id,
-                              @AuthenticationPrincipal UserDetails userDetails) {
+                              @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         aircraftService.buyAircraft(id, userDetails);
         return "boughtItem";
     }

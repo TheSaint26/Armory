@@ -1,5 +1,6 @@
 package bg.softuni.armory.web;
 
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.RocketArtilleryService;
 import bg.softuni.armory.service.TrunkArtilleryService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,7 +35,7 @@ public class ArtilleryController {
 
     @GetMapping("/trunk/buy/{id}")
     public String butTrunkArtillery(@PathVariable("id") Long id,
-                                    @AuthenticationPrincipal UserDetails userDetails) {
+                                    @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         trunkArtilleryService.buyTrunkArtillery(id, userDetails);
         return "boughtItem";
     }
@@ -47,7 +48,7 @@ public class ArtilleryController {
 
     @GetMapping("/rocket/buy/{id}")
     public String buyRocketArtillery(@PathVariable("id") Long id,
-                                     @AuthenticationPrincipal UserDetails userDetails) {
+                                     @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         rocketArtilleryService.buyRocketArtillery(id, userDetails);
         return "boughtItem";
     }

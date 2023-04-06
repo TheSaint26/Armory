@@ -1,13 +1,16 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.aircraft.AircraftEntity;
-import bg.softuni.armory.model.entity.artillery.TrunkArtilleryEntity;
 import bg.softuni.armory.model.entity.dto.AircraftAddDTO;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.AircraftViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
+import bg.softuni.armory.model.enums.AccountRole;
 import bg.softuni.armory.model.enums.AircraftType;
+import bg.softuni.armory.model.enums.UserType;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.repository.AircraftRepository;
+import bg.softuni.armory.repository.RoleRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,11 +26,13 @@ public class AircraftService {
     private final AircraftRepository aircraftRepository;
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public AircraftService(AircraftRepository aircraftRepository, ModelMapper modelMapper, UserRepository userRepository) {
+    public AircraftService(AircraftRepository aircraftRepository, ModelMapper modelMapper, UserRepository userRepository, RoleRepository roleRepository) {
         this.aircraftRepository = aircraftRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     public void seedAircraft() {
@@ -220,9 +225,12 @@ public class AircraftService {
         return null;
     }
 
-    public void buyAircraft(Long aircraftId, UserDetails userDetails) {
+    public void buyAircraft(Long aircraftId, UserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
-        AircraftEntity aircraft = aircraftRepository.findById(aircraftId).get();
+        if ((user.getUserType().equals(UserType.PERSON) || user.getUserType().equals(UserType.PARAMILITARY_ORGANIZATION)) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
+            throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
+        }
+        AircraftEntity aircraft = aircraftRepository.findById(aircraftId).orElseThrow();
         user.getBoughtAircraft().add(aircraft);
         userRepository.save(user);
     }
