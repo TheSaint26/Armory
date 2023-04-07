@@ -36,6 +36,16 @@
                         <a class="dropdown-item" href="/">Edit Weapon</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR') && !hasRole('ADMINISTRATOR')">
+                    <a class="nav-link dropdown-toggle" href="/" id="moderatorNavbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Moderator
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/">Manage Accounts</a>
+                        <a class="dropdown-item" href="/">Edit Weapon</a>
+                    </div>
+                </li>
 
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <div class="form-inline my-2 my-lg-0 border px-3">

@@ -19,6 +19,8 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 public class UserEntity extends BaseEntity {
+    @Column(name = "username", nullable = false, unique = true)
+    private String username;
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "email", nullable = false, unique = true)
@@ -31,28 +33,31 @@ public class UserEntity extends BaseEntity {
     private UserType userType;
     @Column(name = "registered_on", nullable = false)
     private LocalDate registeredOn;
-    @OneToMany
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
+    @ManyToMany(targetEntity = PistolEntity.class, mappedBy = "users")
     private Set<PistolEntity> boughtPistols;
-    @OneToMany
+    @ManyToMany(targetEntity = AssaultRifleEntity.class, mappedBy = "users")
     private Set<AssaultRifleEntity> boughtAssaultRifles;
-    @OneToMany
+    @ManyToMany(targetEntity = MachineGunEntity.class, mappedBy = "users")
     private Set<MachineGunEntity> boughtMachineGuns;
-    @OneToMany
+    @ManyToMany(targetEntity = SniperEntity.class, mappedBy = "users")
     private Set<SniperEntity> boughtSnipers;
-    @OneToMany
+    @ManyToMany(targetEntity = GrenadeLauncherEntity.class, mappedBy = "users")
     private Set<GrenadeLauncherEntity> boughtGrenadeLaunchers;
-    @OneToMany
+    @ManyToMany(targetEntity = InfantryFightingVehicleEntity.class, mappedBy = "users")
     private Set<InfantryFightingVehicleEntity> boughtIfvs;
-    @OneToMany
+    @ManyToMany(targetEntity = TankEntity.class, mappedBy = "users")
     private Set<TankEntity> boughtTanks;
-    @OneToMany
+    @ManyToMany(targetEntity = TrunkArtilleryEntity.class, mappedBy = "users")
     private Set<TrunkArtilleryEntity> boughtTrunkArtillery;
-    @OneToMany
+    @ManyToMany(targetEntity = RocketArtilleryEntity.class, mappedBy = "users")
     private Set<RocketArtilleryEntity> boughtRocketArtillery;
-    @OneToMany
+    @ManyToMany(targetEntity = AircraftEntity.class, mappedBy = "users")
     private Set<AircraftEntity> boughtAircraft;
 
     public UserEntity() {
+        this.isActive = false;
         this.roles = new ArrayList<>();
         this.boughtPistols = new HashSet<>();
         this.boughtAssaultRifles = new HashSet<>();
@@ -64,6 +69,15 @@ public class UserEntity extends BaseEntity {
         this.boughtTrunkArtillery = new HashSet<>();
         this.boughtRocketArtillery = new HashSet<>();
         this.boughtAircraft = new HashSet<>();
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserEntity setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public String getPassword() {
@@ -122,6 +136,15 @@ public class UserEntity extends BaseEntity {
 
     public void addRole(RoleEntity role) {
         this.roles.add(role);
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public UserEntity setActive(boolean active) {
+        isActive = active;
+        return this;
     }
 
     public Set<PistolEntity> getBoughtPistols() {

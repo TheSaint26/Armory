@@ -21,15 +21,16 @@ public class ArmoryUserDetailsService implements UserDetailsService {
 
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return userRepository.findUserByEmail(email)
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findUserEntityByUsername(username)
                 .map(this::map)
-                .orElseThrow(() -> new UsernameNotFoundException("User with email " + email + " was not found!"));
+                .orElseThrow(() -> new UsernameNotFoundException("User with username " + username + " was not found!"));
     }
 
     private UserDetails map(UserEntity user) {
 
         return new ArmoryUserDetails(
+                user.getUsername(),
                 user.getEmail(),
                 user.getPassword(),
                 user.getFullName(),

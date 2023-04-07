@@ -1,10 +1,12 @@
 package bg.softuni.armory.model.entity.aircraft;
 
 import bg.softuni.armory.model.entity.BaseEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.enums.AircraftType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "aircraft")
@@ -45,7 +47,8 @@ public class AircraftEntity extends BaseEntity {
     private String description;
     @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
     private String imageUrl;
-
+    @ManyToMany
+    public Set<UserEntity> users;
     public AircraftEntity() {
     }
 
@@ -208,6 +211,15 @@ public class AircraftEntity extends BaseEntity {
 
     public AircraftEntity setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public AircraftEntity setUsers(Set<UserEntity> users) {
+        this.users = users;
         return this;
     }
 }

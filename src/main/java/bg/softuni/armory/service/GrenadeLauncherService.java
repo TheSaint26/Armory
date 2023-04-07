@@ -105,10 +105,12 @@ public class GrenadeLauncherService {
         return modelMapper.map(grenadeLauncher, FirearmViewDTO.class);
     }
     public void buyGrenadeLauncher(Long grenadeLauncherId, UserDetails userDetails) {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(grenadeLauncherId).get();
         user.getBoughtGrenadeLaunchers().add(grenadeLauncher);
+        grenadeLauncher.getUsers().add(user);
         userRepository.save(user);
+        grenadeLauncherRepository.save(grenadeLauncher);
     }
 
     public void addGrenadelauncher(FirearmAddDTO firearmAddDTO) {

@@ -1,16 +1,11 @@
 package bg.softuni.armory.model.entity.user;
 
-import bg.softuni.armory.model.entity.validation.UniqueUserEmail;
-
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class UserLoginDTO {
-    @Email(message = "Invalid email format!")
-    @UniqueUserEmail(message = "The entered email already exists!")
-    @NotBlank(message = "You must enter email!")
-    private String email;
+    @NotBlank(message = "You must enter username!")
+    private String username;
     @NotBlank(message = "You must enter password!")
     @Size(min = 3, message = "Password must be at least 3 characters!")
     private String password;
@@ -18,12 +13,12 @@ public class UserLoginDTO {
     public UserLoginDTO() {
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsername() {
+        return username;
     }
 
-    public UserLoginDTO setEmail(String userName) {
-        this.email = userName;
+    public UserLoginDTO setUsername(String userName) {
+        this.username = userName;
         return this;
     }
 
@@ -39,7 +34,7 @@ public class UserLoginDTO {
     @Override
     public String toString() {
         return "UserLoginDTO{" +
-                "email='" + email + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + (password != null ? "[PROVIDED]" : null) + '\'' +
                 '}';
     }

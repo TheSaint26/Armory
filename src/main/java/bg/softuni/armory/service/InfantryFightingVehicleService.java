@@ -157,13 +157,15 @@ public class InfantryFightingVehicleService {
     }
 
     public void buyIFV(Long ifvId, UserDetails userDetails) throws NotAllowedToBuyException {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if (user.getUserType().equals(UserType.PERSON) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person!");
         }
         InfantryFightingVehicleEntity vehicle = infantryFightingVehicleRepository.findById(ifvId).orElseThrow();
         user.getBoughtIfvs().add(vehicle);
+        vehicle.getUsers().add(user);
         userRepository.save(user);
+        infantryFightingVehicleRepository.save(vehicle);
     }
 
     public void addIfv(IfvAddDTO ifvAddDTO) {

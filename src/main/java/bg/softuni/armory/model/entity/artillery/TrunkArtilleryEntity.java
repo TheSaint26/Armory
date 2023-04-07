@@ -2,11 +2,13 @@ package bg.softuni.armory.model.entity.artillery;
 
 
 import bg.softuni.armory.model.entity.BaseEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.enums.TrunkArtilleryType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "trunk_artillery")
@@ -47,6 +49,8 @@ public class TrunkArtilleryEntity extends BaseEntity {
     private String imageUrl;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+    @ManyToMany
+    private Set<UserEntity> users;
 
 
     public TrunkArtilleryEntity() {
@@ -211,6 +215,15 @@ public class TrunkArtilleryEntity extends BaseEntity {
 
     public TrunkArtilleryEntity setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public TrunkArtilleryEntity setUsers(Set<UserEntity> users) {
+        this.users = users;
         return this;
     }
 }

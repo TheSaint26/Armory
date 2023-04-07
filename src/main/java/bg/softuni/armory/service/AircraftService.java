@@ -226,13 +226,15 @@ public class AircraftService {
     }
 
     public void buyAircraft(Long aircraftId, UserDetails userDetails) throws NotAllowedToBuyException {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if ((user.getUserType().equals(UserType.PERSON) || user.getUserType().equals(UserType.PARAMILITARY_ORGANIZATION)) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
         }
         AircraftEntity aircraft = aircraftRepository.findById(aircraftId).orElseThrow();
         user.getBoughtAircraft().add(aircraft);
+        aircraft.getUsers().add(user);
         userRepository.save(user);
+        aircraftRepository.save(aircraft);
     }
 
     public void addAircraft(AircraftAddDTO aircraftAddDTO) {

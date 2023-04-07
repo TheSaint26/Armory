@@ -141,10 +141,12 @@ public class AssaultRifleService {
     }
 
     public void buyAssaultRifle(Long assaultRifleId, UserDetails userDetails) {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         AssaultRifleEntity assaultRifle = assaultRifleRepository.findById(assaultRifleId).get();
         user.getBoughtAssaultRifles().add(assaultRifle);
+        assaultRifle.getUsers().add(user);
         userRepository.save(user);
+        assaultRifleRepository.save(assaultRifle);
     }
 
     public void addAssaultRifle(FirearmAddDTO firearmAddDTO) {

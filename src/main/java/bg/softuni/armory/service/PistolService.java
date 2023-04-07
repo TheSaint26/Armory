@@ -145,10 +145,12 @@ public class PistolService {
     }
 
     public void buyPistol(Long pistolId, UserDetails userDetails) {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         PistolEntity pistol = pistolRepository.findById(pistolId).get();
         user.getBoughtPistols().add(pistol);
+        pistol.getUsers().add(user);
         userRepository.save(user);
+        pistolRepository.save(pistol);
     }
 
     public void addPistol(FirearmAddDTO firearmAddDTO) {

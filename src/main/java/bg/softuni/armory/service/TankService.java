@@ -177,12 +177,16 @@ public class TankService {
     }
 
     public void buyTank(Long tankId, UserDetails userDetails) throws NotAllowedToBuyException {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        System.out.println(userDetails.getUsername());
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
+        System.out.println(user.getEmail());
         if ((user.getUserType().equals(UserType.PERSON) || user.getUserType().equals(UserType.PARAMILITARY_ORGANIZATION)) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
         }
         TankEntity tank = tankRepository.findById(tankId).get();
         user.getBoughtTanks().add(tank);
+        tank.getUsers().add(user);
+        tankRepository.save(tank);
         userRepository.save(user);
     }
 

@@ -6,14 +6,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class ArmoryUserDetails implements UserDetails {
+    private final String username;
     private final String email;
     private final String password;
     private final String fullName;
     private final Collection<GrantedAuthority> authorities;
 
-    public ArmoryUserDetails(String email,
+    public ArmoryUserDetails(String username, String email,
                              String password,
                              String fullName, Collection<GrantedAuthority> authorities) {
+        this.username = username;
         this.email = email;
         this.password = password;
         this.fullName = fullName;
@@ -32,7 +34,7 @@ public class ArmoryUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

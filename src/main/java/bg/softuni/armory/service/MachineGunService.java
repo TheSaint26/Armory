@@ -137,10 +137,12 @@ public class MachineGunService {
     }
 
     public void buyMachineGun(Long machineGunId, UserDetails userDetails) {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         MachineGunEntity machineGun = machineGunRepository.findById(machineGunId).get();
         user.getBoughtMachineGuns().add(machineGun);
+        machineGun.getUsers().add(user);
         userRepository.save(user);
+        machineGunRepository.save(machineGun);
     }
 
     public void addMachineGun(FirearmAddDTO firearmAddDTO) {

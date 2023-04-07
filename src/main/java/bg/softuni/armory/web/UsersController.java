@@ -1,6 +1,6 @@
 package bg.softuni.armory.web;
 
-import bg.softuni.armory.model.entity.user.UserLoginDTO;
+
 import bg.softuni.armory.model.entity.user.UserRegisterDTO;
 import bg.softuni.armory.service.UserService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -50,6 +50,7 @@ public class UsersController {
             redirectAttributes.addFlashAttribute("badCredentials", true);
             return "redirect:/users/register";
         }
+
         return "redirect:/users/login";
     }
 

@@ -1,6 +1,7 @@
 package bg.softuni.armory.model.entity.user;
 
 import bg.softuni.armory.model.entity.validation.UniqueUserEmail;
+import bg.softuni.armory.model.entity.validation.UniqueUsername;
 import bg.softuni.armory.model.enums.UserType;
 
 import javax.validation.constraints.Email;
@@ -9,6 +10,10 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class UserRegisterDTO {
+    @NotBlank(message = "You must choose username!")
+    @UniqueUsername(message = "This username is already taken!")
+    @Size(min = 3, message = "Username must contain at least 3 characters!")
+    private String username;
     @Email(message = "Invalid email format!")
     @UniqueUserEmail(message = "The entered email already exists!")
     @NotBlank(message = "You must enter email!")
@@ -26,6 +31,15 @@ public class UserRegisterDTO {
     private UserType userType;
 
     public UserRegisterDTO() {
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public UserRegisterDTO setUsername(String username) {
+        this.username = username;
+        return this;
     }
 
     public String getEmail() {

@@ -46,6 +46,7 @@ public class UserService {
         newUser.setRegisteredOn(LocalDate.now());
         if (userRepository.count() == 0) {
             newUser.setRoles(roleRepository.findAll());
+            newUser.setActive(true);
         } else {
             newUser.addRole(roleRepository.findByName(AccountRole.USER));
         }
@@ -53,24 +54,24 @@ public class UserService {
         return true;
     }
 
-   private void login(UserLoginDTO user) {
-       UserDetails userDetails =
-               userDetailsService.loadUserByUsername(user.getEmail());
-
-       Authentication authentication =
-               new UsernamePasswordAuthenticationToken(
-                       userDetails,
-                       userDetails.getPassword(),
-                       userDetails.getAuthorities()
-               );
-
-       SecurityContextHolder
-               .getContext()
-               .setAuthentication(authentication);
-   }
+//   private void login(UserLoginDTO user) {
+//       UserDetails userDetails =
+//               userDetailsService.loadUserByUsername(user.getUsername());
+//
+//       Authentication authentication =
+//               new UsernamePasswordAuthenticationToken(
+//                       userDetails,
+//                       userDetails.getPassword(),
+//                       userDetails.getAuthorities()
+//               );
+//
+//       SecurityContextHolder
+//               .getContext()
+//               .setAuthentication(authentication);
+//   }
 
    public List<WeaponPictureAndNameViewDTO> getAllWeapons(UserDetails userDetails) {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         List<WeaponPictureAndNameViewDTO> weaponsList = new ArrayList<>();
 
         user.getBoughtPistols()

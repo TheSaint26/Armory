@@ -1,9 +1,11 @@
 package bg.softuni.armory.model.entity.IFV;
 
 import bg.softuni.armory.model.entity.BaseEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "infantry_fighting_vehicles")
@@ -53,6 +55,8 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
     private String imageUrl;
     @Column(name = "descriprion", columnDefinition = "TEXT")
     private String description;
+    @ManyToMany
+    private Set<UserEntity> users;
 
     public InfantryFightingVehicleEntity() {
     }
@@ -252,6 +256,15 @@ public class InfantryFightingVehicleEntity extends BaseEntity {
 
     public InfantryFightingVehicleEntity setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public InfantryFightingVehicleEntity setUsers(Set<UserEntity> users) {
+        this.users = users;
         return this;
     }
 }

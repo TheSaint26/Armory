@@ -1,10 +1,13 @@
 package bg.softuni.armory.model.entity.firearms;
 
 import bg.softuni.armory.model.entity.BaseEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 
 import javax.persistence.Column;
+import javax.persistence.ManyToMany;
 import javax.persistence.MappedSuperclass;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @MappedSuperclass
 public abstract class BaseFireArm extends BaseEntity {
@@ -40,6 +43,8 @@ public abstract class BaseFireArm extends BaseEntity {
     private String imageUrl;
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+    @ManyToMany
+    private Set<UserEntity> users;
 
     public String getName() {
         return name;
@@ -182,6 +187,15 @@ public abstract class BaseFireArm extends BaseEntity {
 
     public BaseFireArm setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public BaseFireArm setUsers(Set<UserEntity> users) {
+        this.users = users;
         return this;
     }
 }

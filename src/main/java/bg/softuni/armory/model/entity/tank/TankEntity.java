@@ -1,9 +1,11 @@
 package bg.softuni.armory.model.entity.tank;
 
 import bg.softuni.armory.model.entity.BaseEntity;
+import bg.softuni.armory.model.entity.user.UserEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Entity
 @Table(name = "tanks")
@@ -50,6 +52,8 @@ public class TankEntity extends BaseEntity {
     private String description;
     @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
     private String imageUrl;
+    @ManyToMany
+    private Set<UserEntity> users;
 
 
     public TankEntity() {
@@ -241,6 +245,15 @@ public class TankEntity extends BaseEntity {
 
     public TankEntity setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    public Set<UserEntity> getUsers() {
+        return users;
+    }
+
+    public TankEntity setUsers(Set<UserEntity> users) {
+        this.users = users;
         return this;
     }
 }

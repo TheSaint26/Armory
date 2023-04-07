@@ -163,13 +163,15 @@ public class RocketArtilleryService {
     }
 
     public void buyRocketArtillery(Long rocketArtilleryId, UserDetails userDetails) throws NotAllowedToBuyException {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if ((user.getUserType().equals(UserType.PERSON) || user.getUserType().equals(UserType.PARAMILITARY_ORGANIZATION)) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
         }
         RocketArtilleryEntity rocketArtillery = rocketArtilleryRepository.findById(rocketArtilleryId).orElseThrow();
         user.getBoughtRocketArtillery().add(rocketArtillery);
+        rocketArtillery.getUsers().add(user);
         userRepository.save(user);
+        rocketArtilleryRepository.save(rocketArtillery);
     }
 
     public void addRocketArtillery(RocketArtilleryAddDTO rocketArtilleryAddDTO) {

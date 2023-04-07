@@ -106,7 +106,9 @@ public class SniperService {
         UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
         SniperEntity sniper = sniperRepository.findById(sniperId).get();
         user.getBoughtSnipers().add(sniper);
+        sniper.getUsers().add(user);
         userRepository.save(user);
+        sniperRepository.save(sniper);
     }
 
     public void addSniper(FirearmAddDTO firearmAddDTO) {
