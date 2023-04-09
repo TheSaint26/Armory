@@ -8,6 +8,7 @@ import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.FireArmType;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.repository.GrenadeLauncherRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -104,8 +105,11 @@ public class GrenadeLauncherService {
         GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(id).get();
         return modelMapper.map(grenadeLauncher, FirearmViewDTO.class);
     }
-    public void buyGrenadeLauncher(Long grenadeLauncherId, UserDetails userDetails) {
+    public void buyGrenadeLauncher(Long grenadeLauncherId, UserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
+        if (!user.isActive()) {
+            throw new NotAllowedToBuyException("Inactive user!");
+        }
         GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(grenadeLauncherId).get();
         user.getBoughtGrenadeLaunchers().add(grenadeLauncher);
         grenadeLauncher.getUsers().add(user);

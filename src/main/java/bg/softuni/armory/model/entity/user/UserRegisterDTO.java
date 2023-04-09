@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 
 public class UserRegisterDTO {
     @NotBlank(message = "You must choose username!")
-    @UniqueUsername(message = "This username is already taken!")
+    @UniqueUsername()
     @Size(min = 3, message = "Username must contain at least 3 characters!")
     private String username;
     @Email(message = "Invalid email format!")

@@ -1,5 +1,6 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.entity.user.UserDTO;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.user.UserLoginDTO;
 import bg.softuni.armory.model.entity.user.UserRegisterDTO;
@@ -16,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,5 +127,53 @@ public class UserService {
                 .forEach(weaponsList::add);
 
         return weaponsList;
+   }
+
+   public List<UserDTO> getOtherUsers(String username) {
+        List<UserEntity> users = userRepository.getAllByUsernameNot(username);
+        List<UserDTO> dtos = new ArrayList<>();
+       for (UserEntity u : users) {
+           dtos.add(map(u));
+       }
+       return dtos;
+   }
+
+   private UserDTO map(UserEntity user) {
+       return new UserDTO()
+               .setId(user.getId())
+               .setUsername(user.getUsername())
+               .setFullName(user.getFullName())
+               .setModerator(user.getRoles().contains(roleRepository.findByName(AccountRole.MODERATOR)))
+               .setActive(user.isActive());
+   }
+
+   public void deactivateUser(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow();
+        user.setActive(false);
+        userRepository.save(user);
+   }
+
+   public void activateUser(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow();
+        user.setActive(true);
+        userRepository.save(user);
+   }
+
+   public void giveModeratorPrivileges(Long id) {
+       UserEntity user = userRepository.findById(id).orElseThrow();
+       if (!user.isActive()) {
+           throw new IllegalStateException("User must be active!");
+       }
+       user.getRoles().add(roleRepository.findByName(AccountRole.MODERATOR));
+       userRepository.save(user);
+   }
+
+   public void takeModeratorPrivileges(Long id) {
+       UserEntity user = userRepository.findById(id).orElseThrow();
+       if (!user.isActive()) {
+           throw new IllegalStateException("User must be active!");
+       }
+       user.getRoles().remove(roleRepository.findByName(AccountRole.MODERATOR));
+       userRepository.save(user);
    }
 }

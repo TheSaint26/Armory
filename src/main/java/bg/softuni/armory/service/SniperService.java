@@ -8,6 +8,7 @@ import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.FireArmType;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.repository.SniperRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -102,8 +103,11 @@ public class SniperService {
         return modelMapper.map(sniper, FirearmViewDTO.class);
     }
 
-    public void buySniper(Long sniperId, UserDetails userDetails) {
+    public void buySniper(Long sniperId, UserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+        if (!user.isActive()) {
+            throw new NotAllowedToBuyException("Inactive user!");
+        }
         SniperEntity sniper = sniperRepository.findById(sniperId).get();
         user.getBoughtSnipers().add(sniper);
         sniper.getUsers().add(user);

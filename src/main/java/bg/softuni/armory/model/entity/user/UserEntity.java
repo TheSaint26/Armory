@@ -35,25 +35,25 @@ public class UserEntity extends BaseEntity {
     private LocalDate registeredOn;
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
-    @ManyToMany(targetEntity = PistolEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = PistolEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<PistolEntity> boughtPistols;
-    @ManyToMany(targetEntity = AssaultRifleEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = AssaultRifleEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<AssaultRifleEntity> boughtAssaultRifles;
-    @ManyToMany(targetEntity = MachineGunEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = MachineGunEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<MachineGunEntity> boughtMachineGuns;
-    @ManyToMany(targetEntity = SniperEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = SniperEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<SniperEntity> boughtSnipers;
-    @ManyToMany(targetEntity = GrenadeLauncherEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = GrenadeLauncherEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<GrenadeLauncherEntity> boughtGrenadeLaunchers;
-    @ManyToMany(targetEntity = InfantryFightingVehicleEntity.class, mappedBy = "users")
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<InfantryFightingVehicleEntity> boughtIfvs;
-    @ManyToMany(targetEntity = TankEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = TankEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<TankEntity> boughtTanks;
-    @ManyToMany(targetEntity = TrunkArtilleryEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = TrunkArtilleryEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<TrunkArtilleryEntity> boughtTrunkArtillery;
-    @ManyToMany(targetEntity = RocketArtilleryEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = RocketArtilleryEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<RocketArtilleryEntity> boughtRocketArtillery;
-    @ManyToMany(targetEntity = AircraftEntity.class, mappedBy = "users")
+    @ManyToMany(targetEntity = AircraftEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<AircraftEntity> boughtAircraft;
 
     public UserEntity() {

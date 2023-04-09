@@ -6,6 +6,7 @@ import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.FireArmType;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.repository.PistolRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -144,8 +145,11 @@ public class PistolService {
         return modelMapper.map(pistol, FirearmViewDTO.class);
     }
 
-    public void buyPistol(Long pistolId, UserDetails userDetails) {
+    public void buyPistol(Long pistolId, UserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
+        if (!user.isActive()) {
+            throw new NotAllowedToBuyException("Inactive user!");
+        }
         PistolEntity pistol = pistolRepository.findById(pistolId).get();
         user.getBoughtPistols().add(pistol);
         pistol.getUsers().add(user);

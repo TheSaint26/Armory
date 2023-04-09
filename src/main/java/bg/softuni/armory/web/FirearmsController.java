@@ -1,6 +1,7 @@
 package bg.softuni.armory.web;
 
 import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -66,7 +67,7 @@ public class FirearmsController {
     }
     @GetMapping("/pistols/buy/{id}")
     public String buyPistol(@PathVariable("id") Long id,
-                            @AuthenticationPrincipal UserDetails userDetails) {
+                            @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         pistolService.buyPistol(id, userDetails);
         return "boughtItem";
     }
@@ -78,7 +79,7 @@ public class FirearmsController {
     }
     @GetMapping("/assaultRifles/buy/{id}")
     public String buyAssaultRifle(@PathVariable("id") Long id,
-                                  @AuthenticationPrincipal UserDetails userDetails) {
+                                  @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         assaultRifleService.buyAssaultRifle(id, userDetails);
         return "boughtItem";
     }
@@ -90,7 +91,7 @@ public class FirearmsController {
     }
     @GetMapping("/machineGuns/buy/{id}")
     public String buyMachineGun(@PathVariable("id") Long id,
-                                  @AuthenticationPrincipal UserDetails userDetails) {
+                                  @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         machineGunService.buyMachineGun(id, userDetails);
         return "boughtItem";
     }
@@ -102,7 +103,7 @@ public class FirearmsController {
     }
     @GetMapping("/snipers/buy/{id}")
     public String buySniper(@PathVariable("id") Long id,
-                                     @AuthenticationPrincipal UserDetails userDetails) {
+                                     @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         sniperService.buySniper(id, userDetails);
         return "boughtItem";
     }
@@ -115,7 +116,7 @@ public class FirearmsController {
 
     @GetMapping("/grenadeLaunchers/buy/{id}")
     public String buyGrenadeLauncher(@PathVariable("id") Long id,
-                                @AuthenticationPrincipal UserDetails userDetails) {
+                                @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
         grenadeLauncherService.buyGrenadeLauncher(id, userDetails);
         return "boughtItem";
     }
