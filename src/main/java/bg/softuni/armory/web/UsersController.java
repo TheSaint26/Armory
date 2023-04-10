@@ -1,6 +1,7 @@
 package bg.softuni.armory.web;
 
 
+import bg.softuni.armory.model.entity.user.ChangeUsernameDTO;
 import bg.softuni.armory.model.entity.user.UserRegisterDTO;
 import bg.softuni.armory.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -26,6 +27,11 @@ public class UsersController {
     @ModelAttribute("userModel")
     public UserRegisterDTO initUserModel() {
         return new UserRegisterDTO();
+    }
+
+    @ModelAttribute("changeDTO")
+    public ChangeUsernameDTO initChangeNameDTO() {
+        return new ChangeUsernameDTO();
     }
 
 
@@ -96,5 +102,11 @@ public class UsersController {
     public String setUser(@PathVariable("id") Long id) {
         userService.takeModeratorPrivileges(id);
         return "redirect:/users/all";
+    }
+
+    @PostMapping("/users/edit-name/{id}")
+    public String editName(@PathVariable("id") Long id) {
+
+        return "redirect:/";
     }
 }

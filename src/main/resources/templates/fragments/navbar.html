@@ -31,7 +31,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a th:text="#{navbar_manage_accounts}" class="dropdown-item" href="/users/all">Manage Accounts</a>
                         <a th:text="#{navbar_add_weapon}" class="dropdown-item" href="/weapons/add">Add Weapon</a>
-                        <a th:text="#{navbar_edit_username}" class="dropdown-item" href="/">Edit Username</a>
+                        <a th:text="#{navbar_edit_username}" class="dropdown-item" th:href="@{/users/edit-name/{id} (id = )}">Edit Username</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR') && !hasRole('ADMINISTRATOR')">

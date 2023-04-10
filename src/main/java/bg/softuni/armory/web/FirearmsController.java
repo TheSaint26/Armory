@@ -1,17 +1,12 @@
 package bg.softuni.armory.web;
 
-import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.*;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/weapons/firearms")

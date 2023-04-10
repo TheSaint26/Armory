@@ -4,13 +4,11 @@ import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.AircraftService;
 import bg.softuni.armory.service.InfantryFightingVehicleService;
 import bg.softuni.armory.service.TankService;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/weapons")
