@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 
 public class ArmoryUserDetails implements UserDetails {
-    private final String username;
+    private String username;
     private final String email;
     private final String password;
     private final String fullName;
@@ -55,5 +55,9 @@ public class ArmoryUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

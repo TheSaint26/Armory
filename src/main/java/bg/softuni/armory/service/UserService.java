@@ -1,9 +1,6 @@
 package bg.softuni.armory.service;
 
-import bg.softuni.armory.model.entity.user.UserDTO;
-import bg.softuni.armory.model.entity.user.UserEntity;
-import bg.softuni.armory.model.entity.user.UserLoginDTO;
-import bg.softuni.armory.model.entity.user.UserRegisterDTO;
+import bg.softuni.armory.model.entity.user.*;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
 import bg.softuni.armory.model.enums.AccountRole;
 import bg.softuni.armory.repository.RoleRepository;
@@ -147,6 +144,10 @@ public class UserService {
                .setActive(user.isActive());
    }
 
+   public UserEntity findUserByUsername(String username) {
+        return userRepository.findUserEntityByUsername(username).orElseThrow();
+   }
+
    public void deactivateUser(Long id) {
         UserEntity user = userRepository.findById(id).orElseThrow();
         user.setActive(false);
@@ -175,5 +176,11 @@ public class UserService {
        }
        user.getRoles().remove(roleRepository.findByName(AccountRole.MODERATOR));
        userRepository.save(user);
+   }
+
+    public void changeUsername(UserEntity user, ChangeUsernameDTO dto) {
+
+        user.setUsername(dto.getUsername());
+        userRepository.save(user);
    }
 }

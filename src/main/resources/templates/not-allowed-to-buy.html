@@ -23,8 +23,11 @@
 <!--    </div>-->
 <!--    <p class="text-danger" style="color: #721c24"> <h3 class="text-danger">Opps!</h3> Something broke unexpectedly.</p>-->
     <p class="lead" style="color: #005cbf">
-      You seem not to be allowed to buy that weapon!
+      You seem not to be allowed to buy that weapon because of error:
     </p>
+    <h3 style="color: #721c24">
+      <th:block th:text="${errorMsg}"></th:block>
+    </h3>
     <a href="/" class="btn btn-primary">Go Home</a>
   </div>
 </div>

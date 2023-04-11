@@ -1,7 +1,9 @@
 package bg.softuni.armory.web;
 
 
+import bg.softuni.armory.model.ArmoryUserDetails;
 import bg.softuni.armory.model.entity.user.ChangeUsernameDTO;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.user.UserRegisterDTO;
 import bg.softuni.armory.service.UserService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -33,9 +36,6 @@ public class UsersController {
     public ChangeUsernameDTO initChangeNameDTO() {
         return new ChangeUsernameDTO();
     }
-
-
-
 
     @GetMapping("/register")
     public String register() {
@@ -104,9 +104,25 @@ public class UsersController {
         return "redirect:/users/all";
     }
 
-    @PostMapping("/users/edit-name/{id}")
-    public String editName(@PathVariable("id") Long id) {
+    @GetMapping("/username")
+    public String viewUsername(@AuthenticationPrincipal ArmoryUserDetails userDetails) {
+//        model.addAttribute("changeDTO", userService.initChangeDTO(userDetails));
+        return "change-username";
+    }
 
-        return "redirect:/";
+    @PostMapping("/update")
+    public String editName(@Valid ChangeUsernameDTO changeDTO,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes,
+                           @AuthenticationPrincipal ArmoryUserDetails userDetails) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("changeDTO", changeDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.changeDTO", bindingResult);
+            return "redirect:/users/username";
+        }
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userService.changeUsername(user, changeDTO);
+        userDetails.setUsername(changeDTO.getUsername());
+        return "username-changed";
     }
 }

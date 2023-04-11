@@ -3,13 +3,13 @@ package bg.softuni.armory.web;
 import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.RocketArtilleryService;
 import bg.softuni.armory.service.TrunkArtilleryService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/weapons/artillery")
@@ -57,5 +57,14 @@ public class ArtilleryController {
     public String rocketArtilleryDetails(@PathVariable("id") Long id, Model model) {
         model.addAttribute("rocketArtillery", rocketArtilleryService.getRocketArtilleryDetails(id));
         return "rocketArtilleryDetails";
+    }
+
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ExceptionHandler({NotAllowedToBuyException.class})
+    public ModelAndView onProductNotFound(NotAllowedToBuyException notAllowedToBuyException) {
+        ModelAndView modelAndView = new ModelAndView("not-allowed-to-buy");
+        modelAndView.addObject("errorMsg", notAllowedToBuyException.getMessage());
+
+        return modelAndView;
     }
 }
