@@ -5,7 +5,9 @@ import bg.softuni.armory.model.ArmoryUserDetails;
 import bg.softuni.armory.model.entity.user.ChangeUsernameDTO;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.user.UserRegisterDTO;
+import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -106,7 +108,6 @@ public class UsersController {
 
     @GetMapping("/username")
     public String viewUsername(@AuthenticationPrincipal ArmoryUserDetails userDetails) {
-//        model.addAttribute("changeDTO", userService.initChangeDTO(userDetails));
         return "change-username";
     }
 
@@ -124,5 +125,14 @@ public class UsersController {
         userService.changeUsername(user, changeDTO);
         userDetails.setUsername(changeDTO.getUsername());
         return "username-changed";
+    }
+
+    @ResponseStatus(value = HttpStatus.FORBIDDEN)
+    @ExceptionHandler({IllegalStateException.class})
+    public ModelAndView onNotActiveUser(IllegalStateException illegalStateException) {
+        ModelAndView modelAndView = new ModelAndView("not-active-user");
+        modelAndView.addObject("errorMsg", illegalStateException.getMessage());
+
+        return modelAndView;
     }
 }
