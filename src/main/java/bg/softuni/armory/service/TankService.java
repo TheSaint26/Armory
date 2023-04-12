@@ -1,5 +1,6 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.ArmoryUserDetails;
 import bg.softuni.armory.model.entity.dto.TankAddDTO;
 import bg.softuni.armory.model.entity.tank.TankEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
@@ -176,7 +177,7 @@ public class TankService {
         return modelMapper.map(tank, TankViewDTO.class);
     }
 
-    public void buyTank(Long tankId, UserDetails userDetails) throws NotAllowedToBuyException {
+    public void buyTank(Long tankId, ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if (!user.isActive()) {
             throw new NotAllowedToBuyException("Inactive user!");
@@ -185,8 +186,17 @@ public class TankService {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
         }
         TankEntity tank = tankRepository.findById(tankId).get();
+
+        if (user.getDeposit().compareTo(tank.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtTanks().add(tank);
         tank.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(tank.getPrice());
+        user.setDeposit(fundsLeft);
+
         tankRepository.save(tank);
         userRepository.save(user);
     }

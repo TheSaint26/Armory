@@ -1,8 +1,11 @@
 package bg.softuni.armory.web;
 
+import bg.softuni.armory.model.ArmoryUserDetails;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.RocketArtilleryService;
 import bg.softuni.armory.service.TrunkArtilleryService;
+import bg.softuni.armory.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,10 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class ArtilleryController {
     private final RocketArtilleryService rocketArtilleryService;
     private final TrunkArtilleryService trunkArtilleryService;
+    private final UserService userService;
 
-    public ArtilleryController(RocketArtilleryService rocketArtilleryService, TrunkArtilleryService trunkArtilleryService) {
+    public ArtilleryController(RocketArtilleryService rocketArtilleryService, TrunkArtilleryService trunkArtilleryService, UserService userService) {
         this.rocketArtilleryService = rocketArtilleryService;
         this.trunkArtilleryService = trunkArtilleryService;
+        this.userService = userService;
     }
 
     @GetMapping("/trunk")
@@ -35,8 +40,12 @@ public class ArtilleryController {
 
     @GetMapping("/trunk/buy/{id}")
     public String butTrunkArtillery(@PathVariable("id") Long id,
-                                    @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
+                                    @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         trunkArtilleryService.buyTrunkArtillery(id, userDetails);
+
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userDetails.setDeposit(user.getDeposit());
+
         return "boughtItem";
     }
 
@@ -48,8 +57,12 @@ public class ArtilleryController {
 
     @GetMapping("/rocket/buy/{id}")
     public String buyRocketArtillery(@PathVariable("id") Long id,
-                                     @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
+                                     @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         rocketArtilleryService.buyRocketArtillery(id, userDetails);
+
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userDetails.setDeposit(user.getDeposit());
+
         return "boughtItem";
     }
 

@@ -3,9 +3,9 @@ package bg.softuni.armory.web;
 
 import bg.softuni.armory.model.ArmoryUserDetails;
 import bg.softuni.armory.model.entity.user.ChangeUsernameDTO;
+import bg.softuni.armory.model.entity.user.DepositDTO;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.user.UserRegisterDTO;
-import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -37,6 +37,10 @@ public class UsersController {
     @ModelAttribute("changeDTO")
     public ChangeUsernameDTO initChangeNameDTO() {
         return new ChangeUsernameDTO();
+    }
+    @ModelAttribute("depositDTO")
+    public DepositDTO initDepositDTO() {
+        return new DepositDTO();
     }
 
     @GetMapping("/register")
@@ -125,6 +129,28 @@ public class UsersController {
         userService.changeUsername(user, changeDTO);
         userDetails.setUsername(changeDTO.getUsername());
         return "username-changed";
+    }
+
+    @GetMapping("/deposit-money")
+    public String depositView() {
+        return "deposit-money";
+    }
+
+    @PostMapping("/deposit-money")
+    public String depositMoney(@Valid DepositDTO depositDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes,
+                               @AuthenticationPrincipal ArmoryUserDetails userDetails) {
+        System.out.println();
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("depositDTO", depositDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.depositDTO", bindingResult);
+            return "redirect:/users/deposit-money";
+        }
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userService.depositMoney(user, depositDTO);
+        userDetails.setDeposit(user.getDeposit());
+        return "deposit-successful";
     }
 
     @ResponseStatus(value = HttpStatus.FORBIDDEN)

@@ -1,5 +1,6 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.ArmoryUserDetails;
 import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.entity.firearms.AssaultRifleEntity;
 import bg.softuni.armory.model.entity.firearms.MachineGunEntity;
@@ -137,7 +138,7 @@ public class MachineGunService {
         return modelMapper.map(machineGun, FirearmViewDTO.class);
     }
 
-    public void buyMachineGun(Long machineGunId, UserDetails userDetails) throws NotAllowedToBuyException {
+    public void buyMachineGun(Long machineGunId, ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if (!user.isActive()) {
             throw new NotAllowedToBuyException("Inactive user!");
@@ -145,6 +146,10 @@ public class MachineGunService {
         MachineGunEntity machineGun = machineGunRepository.findById(machineGunId).get();
         user.getBoughtMachineGuns().add(machineGun);
         machineGun.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(machineGun.getPrice());
+        user.setDeposit(fundsLeft);
+
         userRepository.save(user);
         machineGunRepository.save(machineGun);
     }

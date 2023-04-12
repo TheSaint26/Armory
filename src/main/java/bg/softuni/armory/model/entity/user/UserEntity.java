@@ -10,6 +10,7 @@ import bg.softuni.armory.model.entity.tank.TankEntity;
 import bg.softuni.armory.model.enums.UserType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -35,6 +36,8 @@ public class UserEntity extends BaseEntity {
     private LocalDate registeredOn;
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
+    @Column(name = "deposit")
+    private BigDecimal deposit;
     @ManyToMany(targetEntity = PistolEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
     private Set<PistolEntity> boughtPistols;
     @ManyToMany(targetEntity = AssaultRifleEntity.class, mappedBy = "users", fetch = FetchType.EAGER)
@@ -69,6 +72,7 @@ public class UserEntity extends BaseEntity {
         this.boughtTrunkArtillery = new HashSet<>();
         this.boughtRocketArtillery = new HashSet<>();
         this.boughtAircraft = new HashSet<>();
+        this.deposit = BigDecimal.ZERO;
     }
 
     public String getUsername() {
@@ -165,6 +169,15 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
+    public BigDecimal getDeposit() {
+        return deposit;
+    }
+
+    public UserEntity setDeposit(BigDecimal deposit) {
+        this.deposit = deposit;
+        return this;
+    }
+
     public Set<MachineGunEntity> getBoughtMachineGuns() {
         return boughtMachineGuns;
     }
@@ -235,5 +248,9 @@ public class UserEntity extends BaseEntity {
     public UserEntity setBoughtAircraft(Set<AircraftEntity> boughtAircraft) {
         this.boughtAircraft = boughtAircraft;
         return this;
+    }
+
+    public void addDeposit(BigDecimal toAdd) {
+        this.deposit = this.deposit.add(toAdd);
     }
 }

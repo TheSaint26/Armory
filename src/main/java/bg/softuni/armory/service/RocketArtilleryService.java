@@ -171,8 +171,17 @@ public class RocketArtilleryService {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
         }
         RocketArtilleryEntity rocketArtillery = rocketArtilleryRepository.findById(rocketArtilleryId).orElseThrow();
+
+        if (user.getDeposit().compareTo(rocketArtillery.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtRocketArtillery().add(rocketArtillery);
         rocketArtillery.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(rocketArtillery.getPrice());
+        user.setDeposit(fundsLeft);
+
         userRepository.save(user);
         rocketArtilleryRepository.save(rocketArtillery);
     }

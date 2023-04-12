@@ -165,8 +165,16 @@ public class InfantryFightingVehicleService {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person!");
         }
         InfantryFightingVehicleEntity vehicle = infantryFightingVehicleRepository.findById(ifvId).orElseThrow();
+
+        if (user.getDeposit().compareTo(vehicle.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtIfvs().add(vehicle);
         vehicle.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(vehicle.getPrice());
+        user.setDeposit(fundsLeft);
         userRepository.save(user);
         infantryFightingVehicleRepository.save(vehicle);
     }

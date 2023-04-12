@@ -1,5 +1,6 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.ArmoryUserDetails;
 import bg.softuni.armory.model.entity.aircraft.AircraftEntity;
 import bg.softuni.armory.model.entity.dto.AircraftAddDTO;
 import bg.softuni.armory.model.entity.user.UserEntity;
@@ -225,7 +226,7 @@ public class AircraftService {
         return null;
     }
 
-    public void buyAircraft(Long aircraftId, UserDetails userDetails) throws NotAllowedToBuyException {
+    public void buyAircraft(Long aircraftId, ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if (!user.isActive()) {
             throw new NotAllowedToBuyException("Inactive user!");
@@ -233,9 +234,19 @@ public class AircraftService {
         if ((user.getUserType().equals(UserType.PERSON) || user.getUserType().equals(UserType.PARAMILITARY_ORGANIZATION)) && !user.getRoles().contains(roleRepository.findByName(AccountRole.ADMINISTRATOR))) {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
         }
+
         AircraftEntity aircraft = aircraftRepository.findById(aircraftId).orElseThrow();
+
+        if (user.getDeposit().compareTo(aircraft.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtAircraft().add(aircraft);
         aircraft.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(aircraft.getPrice());
+        user.setDeposit(fundsLeft);
+
         userRepository.save(user);
         aircraftRepository.save(aircraft);
     }

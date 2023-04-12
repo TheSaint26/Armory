@@ -147,6 +147,15 @@ public class AssaultRifleService {
             throw new NotAllowedToBuyException("Inactive user!");
         }
         AssaultRifleEntity assaultRifle = assaultRifleRepository.findById(assaultRifleId).get();
+
+        if (user.getDeposit().compareTo(assaultRifle.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(assaultRifle.getPrice());
+        user.setDeposit(fundsLeft);
+
         user.getBoughtAssaultRifles().add(assaultRifle);
         assaultRifle.getUsers().add(user);
         userRepository.save(user);

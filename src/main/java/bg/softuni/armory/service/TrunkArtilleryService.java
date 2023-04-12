@@ -183,8 +183,17 @@ public class TrunkArtilleryService {
             throw new NotAllowedToBuyException("This weapon is not allowed to be bought by a person or paramilitary organization!");
         }
         TrunkArtilleryEntity trunkArtillery = trunkArtilleryRepository.findById(trunkArtilleryId).orElseThrow();
+
+        if (user.getDeposit().compareTo(trunkArtillery.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtTrunkArtillery().add(trunkArtillery);
         trunkArtillery.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(trunkArtillery.getPrice());
+        user.setDeposit(fundsLeft);
+
         userRepository.save(user);
         trunkArtilleryRepository.save(trunkArtillery);
     }

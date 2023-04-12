@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bought Item</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="body page-item" style="background-image: url('/images/explosion-img.jpg')">
+<div class="vh-100 d-flex justify-content-center align-items-center">
+  <div th:object="${depositDTO}">
+    <div class="mb-4 text-center">
+    </div>
+    <div class="text-center">
+      <h1 class="text-warning" th:text="|You successfully deposited *{deposit} ${'&#36;'+'&nbsp;'} to your account.|">SUCCESSFULLY DEPOSITED MONEY!</h1>
+      <p class="text-white">Money will be transferred to your account immediately.</p>
+      <a href="/">
+        <button class="btn btn-primary">Back Home</button>
+      </a>
+    </div>
+  </div>
+</div>
+</body>
+
+</html>

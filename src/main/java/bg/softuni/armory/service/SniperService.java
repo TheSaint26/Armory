@@ -1,5 +1,6 @@
 package bg.softuni.armory.service;
 
+import bg.softuni.armory.model.ArmoryUserDetails;
 import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
 import bg.softuni.armory.model.entity.firearms.GrenadeLauncherEntity;
 import bg.softuni.armory.model.entity.firearms.MachineGunEntity;
@@ -103,14 +104,22 @@ public class SniperService {
         return modelMapper.map(sniper, FirearmViewDTO.class);
     }
 
-    public void buySniper(Long sniperId, UserDetails userDetails) throws NotAllowedToBuyException {
-        UserEntity user = userRepository.findUserByEmail(userDetails.getUsername()).orElseThrow();
+    public void buySniper(Long sniperId, ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
+        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if (!user.isActive()) {
             throw new NotAllowedToBuyException("Inactive user!");
         }
         SniperEntity sniper = sniperRepository.findById(sniperId).get();
+        if (user.getDeposit().compareTo(sniper.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtSnipers().add(sniper);
         sniper.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(sniper.getPrice());
+        user.setDeposit(fundsLeft);
+
         userRepository.save(user);
         sniperRepository.save(sniper);
     }

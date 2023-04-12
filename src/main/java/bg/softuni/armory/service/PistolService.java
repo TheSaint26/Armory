@@ -151,8 +151,13 @@ public class PistolService {
             throw new NotAllowedToBuyException("Inactive user!");
         }
         PistolEntity pistol = pistolRepository.findById(pistolId).get();
+
         user.getBoughtPistols().add(pistol);
         pistol.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(pistol.getPrice());
+        user.setDeposit(fundsLeft);
+
         userRepository.save(user);
         pistolRepository.save(pistol);
     }

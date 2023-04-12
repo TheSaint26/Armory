@@ -1,5 +1,7 @@
 package bg.softuni.armory.web;
 
+import bg.softuni.armory.model.ArmoryUserDetails;
+import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.exception.NotAllowedToBuyException;
 import bg.softuni.armory.service.*;
 import org.springframework.http.HttpStatus;
@@ -18,13 +20,15 @@ public class FirearmsController {
     private final MachineGunService machineGunService;
     private final SniperService sniperService;
     private final GrenadeLauncherService grenadeLauncherService;
+    private final UserService userService;
 
-    public FirearmsController(PistolService pistolService, AssaultRifleService assaultRifleService, MachineGunService machineGunService, SniperService sniperService, GrenadeLauncherService grenadeLauncherService) {
+    public FirearmsController(PistolService pistolService, AssaultRifleService assaultRifleService, MachineGunService machineGunService, SniperService sniperService, GrenadeLauncherService grenadeLauncherService, UserService userService) {
         this.pistolService = pistolService;
         this.assaultRifleService = assaultRifleService;
         this.machineGunService = machineGunService;
         this.sniperService = sniperService;
         this.grenadeLauncherService = grenadeLauncherService;
+        this.userService = userService;
     }
 
     @GetMapping("/pistols")
@@ -64,8 +68,10 @@ public class FirearmsController {
     }
     @GetMapping("/pistols/buy/{id}")
     public String buyPistol(@PathVariable("id") Long id,
-                            @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
+                            @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         pistolService.buyPistol(id, userDetails);
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userDetails.setDeposit(user.getDeposit());
         return "boughtItem";
     }
 
@@ -76,8 +82,11 @@ public class FirearmsController {
     }
     @GetMapping("/assaultRifles/buy/{id}")
     public String buyAssaultRifle(@PathVariable("id") Long id,
-                                  @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
+                                  @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         assaultRifleService.buyAssaultRifle(id, userDetails);
+
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userDetails.setDeposit(user.getDeposit());
         return "boughtItem";
     }
 
@@ -88,8 +97,12 @@ public class FirearmsController {
     }
     @GetMapping("/machineGuns/buy/{id}")
     public String buyMachineGun(@PathVariable("id") Long id,
-                                  @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
+                                  @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         machineGunService.buyMachineGun(id, userDetails);
+
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userDetails.setDeposit(user.getDeposit());
+
         return "boughtItem";
     }
 
@@ -100,8 +113,12 @@ public class FirearmsController {
     }
     @GetMapping("/snipers/buy/{id}")
     public String buySniper(@PathVariable("id") Long id,
-                                     @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
+                                     @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         sniperService.buySniper(id, userDetails);
+
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userDetails.setDeposit(user.getDeposit());
+
         return "boughtItem";
     }
 
@@ -113,8 +130,12 @@ public class FirearmsController {
 
     @GetMapping("/grenadeLaunchers/buy/{id}")
     public String buyGrenadeLauncher(@PathVariable("id") Long id,
-                                @AuthenticationPrincipal UserDetails userDetails) throws NotAllowedToBuyException {
+                                @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
         grenadeLauncherService.buyGrenadeLauncher(id, userDetails);
+
+        UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        userDetails.setDeposit(user.getDeposit());
+
         return "boughtItem";
     }
     @ResponseStatus(value = HttpStatus.FORBIDDEN)

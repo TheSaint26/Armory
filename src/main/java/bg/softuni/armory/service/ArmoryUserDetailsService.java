@@ -34,6 +34,7 @@ public class ArmoryUserDetailsService implements UserDetailsService {
                 user.getEmail(),
                 user.getPassword(),
                 user.getFullName(),
+                user.getDeposit(),
                 user.getRoles()
                         .stream()
                         .map(this::mapAuthority)

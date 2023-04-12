@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -181,6 +182,16 @@ public class UserService {
     public void changeUsername(UserEntity user, ChangeUsernameDTO dto) {
 
         user.setUsername(dto.getUsername());
+        userRepository.save(user);
+   }
+
+   public void depositMoney(UserEntity user, DepositDTO depositDTO) {
+        if (!user.isActive()) {
+            throw new IllegalStateException("User must be active!");
+        }
+        int money = Integer.parseInt(depositDTO.getDeposit());
+        BigDecimal newMoney = BigDecimal.valueOf(money);
+        user.addDeposit(newMoney);
         userRepository.save(user);
    }
 }

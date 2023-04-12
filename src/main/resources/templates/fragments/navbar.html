@@ -32,6 +32,7 @@
                         <a th:text="#{navbar_manage_accounts}" class="dropdown-item" href="/users/all">Manage Accounts</a>
                         <a th:text="#{navbar_add_weapon}" class="dropdown-item" href="/weapons/add">Add Weapon</a>
                         <a th:text="#{navbar_edit_username}" class="dropdown-item" th:href="@{/users/username}">Edit Username</a>
+                        <a th:text="#{navbar_deposit_money}" class="dropdown-item" th:href="@{/users/deposit-money}">Deposit Money</a>
                     </div>
                 </li>
                 <li class="nav-item dropdown" sec:authorize="hasRole('MODERATOR') && !hasRole('ADMINISTRATOR')">
@@ -42,6 +43,16 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a th:text="#{navbar_add_weapon}" class="dropdown-item" href="/weapons/add">Add Weapon</a>
                         <a th:text="#{navbar_edit_username}" class="dropdown-item" th:href="@{/users/username}">Edit Username</a>
+                        <a th:text="#{navbar_deposit_money}" class="dropdown-item" th:href="@{/users/deposit-money}">Deposit Money</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown" sec:authorize="hasRole('USER') && !hasRole('MODERATOR') && !hasRole('ADMINISTRATOR')">
+                    <a th:text="#{navbar_user}" class="nav-link dropdown-toggle" id="navbarDropdownUser" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        User
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a th:text="#{navbar_deposit_money}" class="dropdown-item" th:href="@{/users/deposit-money}">Deposit Money</a>
                     </div>
                 </li>
                 <li class="nav-item" sec:authorize="!isAuthenticated()">
@@ -52,6 +63,12 @@
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <p th:text="|#{navbar_greeting}, ${#authentication.getName()}!|" class="nav-link" href="/users/login">Greeting</p>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <div>
+                        <p class="text-white" th:text="|Deposit: ${#authentication.principal.getDeposit()}${'&#36;'+'&nbsp;'}|">Deposit</p>
+                    </div>
+<!--                    <p th:text="|#{navbar_greeting}, ${#authentication.getName()}!|" class="nav-link" href="/users/login">Greeting</p>-->
                 </li>
                 <li class="nav-item" sec:authorize="isAuthenticated()">
                     <div class="form-inline my-2 my-lg-0 border px-3">
