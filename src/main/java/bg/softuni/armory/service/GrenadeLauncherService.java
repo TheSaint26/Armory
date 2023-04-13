@@ -1,9 +1,7 @@
 package bg.softuni.armory.service;
 
 import bg.softuni.armory.model.entity.dto.FirearmAddDTO;
-import bg.softuni.armory.model.entity.firearms.AssaultRifleEntity;
 import bg.softuni.armory.model.entity.firearms.GrenadeLauncherEntity;
-import bg.softuni.armory.model.entity.firearms.SniperEntity;
 import bg.softuni.armory.model.entity.user.UserEntity;
 import bg.softuni.armory.model.entity.views.FirearmViewDTO;
 import bg.softuni.armory.model.entity.views.WeaponPictureAndNameViewDTO;
@@ -110,14 +108,23 @@ public class GrenadeLauncherService {
         if (!user.isActive()) {
             throw new NotAllowedToBuyException("Inactive user!");
         }
-        GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(grenadeLauncherId).get();
+        GrenadeLauncherEntity grenadeLauncher = grenadeLauncherRepository.findById(grenadeLauncherId).orElseThrow();
+
+        if (user.getDeposit().compareTo(grenadeLauncher.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtGrenadeLaunchers().add(grenadeLauncher);
         grenadeLauncher.getUsers().add(user);
+
+        BigDecimal fundsLeft = user.getDeposit().subtract(grenadeLauncher.getPrice());
+        user.setDeposit(fundsLeft);
+
         userRepository.save(user);
         grenadeLauncherRepository.save(grenadeLauncher);
     }
 
-    public void addGrenadelauncher(FirearmAddDTO firearmAddDTO) {
+    public void addGrenadeLauncher(FirearmAddDTO firearmAddDTO) {
         GrenadeLauncherEntity grenadeLauncher = modelMapper.map(firearmAddDTO, GrenadeLauncherEntity.class);
         grenadeLauncher.setType(FireArmType.GRENADE_LAUNCHER);
         grenadeLauncherRepository.save(grenadeLauncher);

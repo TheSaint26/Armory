@@ -177,7 +177,7 @@ public class AddWeaponController {
             return "redirect:/weapons/add/grenadeLauncher";
         }
 
-        grenadeLauncherService.addGrenadelauncher(firearmAddDTO);
+        grenadeLauncherService.addGrenadeLauncher(firearmAddDTO);
         return "redirect:/";
     }
 
