@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class UserService {
@@ -193,5 +194,27 @@ public class UserService {
         BigDecimal newMoney = BigDecimal.valueOf(money);
         user.addDeposit(newMoney);
         userRepository.save(user);
+   }
+
+   public void payFee() {
+        UserEntity admin = userRepository.getByRolesContaining(roleRepository.findByName(AccountRole.ADMINISTRATOR));
+
+        List<BigDecimal> fees = new ArrayList<>();
+
+        userRepository.getAllByUsernameNot(admin.getUsername())
+                .forEach(u -> {
+                    BigDecimal fee = u.getDeposit().multiply(BigDecimal.valueOf(0.01));
+                    BigDecimal newDeposit = u.getDeposit().subtract(fee);
+                    u.setDeposit(newDeposit);
+                    userRepository.save(u);
+                    fees.add(fee);
+                });
+
+        BigDecimal dailyFee = fees
+                .stream()
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        BigDecimal newAdminDeposit = admin.getDeposit().add(dailyFee);
+        admin.setDeposit(newAdminDeposit);
+        userRepository.save(admin);
    }
 }
