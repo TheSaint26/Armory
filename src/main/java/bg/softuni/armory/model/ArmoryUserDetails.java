@@ -70,4 +70,11 @@ public class ArmoryUserDetails implements UserDetails {
     public void setDeposit(BigDecimal deposit) {
         this.deposit = deposit;
     }
+    public String getEmail() {
+        return this.email;
+    }
+
+    public String getFullName() {
+        return this.fullName;
+    }
 }

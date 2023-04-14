@@ -43,6 +43,6 @@ public class ArmoryUserDetailsService implements UserDetailsService {
 
     private GrantedAuthority mapAuthority(RoleEntity role) {
         return new SimpleGrantedAuthority("ROLE_" +
-                role.getName());
+                role.getName().name());
     }
 }
