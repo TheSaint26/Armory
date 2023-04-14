@@ -13,7 +13,7 @@ public class ScheduleTask {
         this.userService = userService;
     }
 
-    @Scheduled(cron = "0 3 * * *")
+    @Scheduled(cron = "0 0 3 * * ?")
     public void paymentForAdmin() {
         userService.payFee();
     }

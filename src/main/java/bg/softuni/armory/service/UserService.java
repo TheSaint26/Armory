@@ -6,34 +6,30 @@ import bg.softuni.armory.model.enums.AccountRole;
 import bg.softuni.armory.repository.RoleRepository;
 import bg.softuni.armory.repository.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ModelMapper modelMapper;
-    private final UserDetailsService userDetailsService;
+//    private final UserDetailsService userDetailsService;
     private final RoleRepository roleRepository;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, ModelMapper modelMapper, UserDetailsService userDetailsService, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.modelMapper = modelMapper;
-        this.userDetailsService = userDetailsService;
+//        this.userDetailsService = userDetailsService;
         this.roleRepository = roleRepository;
     }
 
@@ -203,7 +199,7 @@ public class UserService {
 
         userRepository.getAllByUsernameNot(admin.getUsername())
                 .forEach(u -> {
-                    BigDecimal fee = u.getDeposit().multiply(BigDecimal.valueOf(0.01));
+                    BigDecimal fee = u.getDeposit().multiply(BigDecimal.valueOf(0.0001));
                     BigDecimal newDeposit = u.getDeposit().subtract(fee);
                     u.setDeposit(newDeposit);
                     userRepository.save(u);
