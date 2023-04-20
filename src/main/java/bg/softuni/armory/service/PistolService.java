@@ -145,12 +145,16 @@ public class PistolService {
         return modelMapper.map(pistol, FirearmViewDTO.class);
     }
 
-    public void buyPistol(Long pistolId, UserDetails userDetails) throws NotAllowedToBuyException {
-        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
+    public void buyPistol(Long pistolId, UserEntity user) throws NotAllowedToBuyException {
+//        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if (!user.isActive()) {
             throw new NotAllowedToBuyException("Inactive user!");
         }
         PistolEntity pistol = pistolRepository.findById(pistolId).get();
+
+        if (user.getDeposit().compareTo(pistol.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
 
         user.getBoughtPistols().add(pistol);
         pistol.getUsers().add(user);

@@ -69,8 +69,9 @@ public class FirearmsController {
     @GetMapping("/pistols/buy/{id}")
     public String buyPistol(@PathVariable("id") Long id,
                             @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
-        pistolService.buyPistol(id, userDetails);
         UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        pistolService.buyPistol(id, user);
+
         userDetails.setDeposit(user.getDeposit());
         return "boughtItem";
     }
@@ -83,9 +84,10 @@ public class FirearmsController {
     @GetMapping("/assaultRifles/buy/{id}")
     public String buyAssaultRifle(@PathVariable("id") Long id,
                                   @AuthenticationPrincipal ArmoryUserDetails userDetails) throws NotAllowedToBuyException {
-        assaultRifleService.buyAssaultRifle(id, userDetails);
-
         UserEntity user = userService.findUserByUsername(userDetails.getUsername());
+        assaultRifleService.buyAssaultRifle(id, user);
+
+
         userDetails.setDeposit(user.getDeposit());
         return "boughtItem";
     }

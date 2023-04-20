@@ -141,7 +141,6 @@ public class UsersController {
                                BindingResult bindingResult,
                                RedirectAttributes redirectAttributes,
                                @AuthenticationPrincipal ArmoryUserDetails userDetails) {
-        System.out.println();
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("depositDTO", depositDTO);
             redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.depositDTO", bindingResult);

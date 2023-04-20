@@ -144,6 +144,11 @@ public class MachineGunService {
             throw new NotAllowedToBuyException("Inactive user!");
         }
         MachineGunEntity machineGun = machineGunRepository.findById(machineGunId).get();
+
+        if (user.getDeposit().compareTo(machineGun.getPrice()) < 0) {
+            throw new NotAllowedToBuyException("You don't have enough money!");
+        }
+
         user.getBoughtMachineGuns().add(machineGun);
         machineGun.getUsers().add(user);
 

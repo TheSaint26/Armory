@@ -141,8 +141,8 @@ public class AssaultRifleService {
         return modelMapper.map(assaultRifle, FirearmViewDTO.class);
     }
 
-    public void buyAssaultRifle(Long assaultRifleId, UserDetails userDetails) throws NotAllowedToBuyException {
-        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
+    public void buyAssaultRifle(Long assaultRifleId, UserEntity user) throws NotAllowedToBuyException {
+//        UserEntity user = userRepository.findUserEntityByUsername(userDetails.getUsername()).orElseThrow();
         if (!user.isActive()) {
             throw new NotAllowedToBuyException("Inactive user!");
         }
